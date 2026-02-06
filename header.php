@@ -157,25 +157,28 @@ $topbar_tagline = 'Precision Craftsmanship Since 1969, Engineered for Excellence
 
         <nav class="main-navigation mobile-menu" role="navigation" aria-label="<?php echo esc_attr__('Primary Menu', 'textdomain'); ?>">
 
-          <div class="header-search header-search--mobile">
-            <?php
-              echo do_blocks(
-                '<!-- wp:ogig/gooey-search {"placeholder":"Search…","context":"header","action":"' . esc_url(home_url('/')) . '"} /-->'
-              );
-            ?>
+          <div class="mobile-nav-inner site-container">
+            <div class="header-search header-search--mobile">
+              <?php
+                echo do_blocks(
+                  '<!-- wp:ogig/gooey-search {"placeholder":"Search…","context":"header","action":"' . esc_url(home_url('/')) . '"} /-->'
+                );
+              ?>
+            </div>
+
+            <ul class="nav-menu">
+              <?php
+                wp_nav_menu([
+                  'theme_location' => 'primary',
+                  'container'      => false,
+                  'fallback_cb'    => false,
+                  'items_wrap'     => '%3$s',
+                  'depth'          => 3,
+                ]);
+              ?>
+            </ul>
           </div>
 
-          <ul class="nav-menu">
-            <?php
-              wp_nav_menu([
-                'theme_location' => 'primary',
-                'container'      => false,
-                'fallback_cb'    => false,
-                'items_wrap'     => '%3$s',
-                'depth'          => 3,
-              ]);
-            ?>
-          </ul>
         </nav>
 
         <div class="header-actions">
