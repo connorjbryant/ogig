@@ -1,0 +1,40 @@
+{
+  "name": "ogig",
+  "version": "1.0.0",
+  "description": "WordPress theme for OGIG Factory Direct",
+  "main": "index.js",
+  "scripts": {
+    "css:build": "sass scss/style.scss build/css/style.min.css --style=compressed && sass scss/editor.scss build/css/editor.min.css --style=compressed",
+    "css:watch": "sass --watch scss:build/css --style=compressed",
+    "js:build": "esbuild src/js/main.js --bundle --minify --sourcemap --outfile=build/js/main.min.js",
+    "js:watch": "esbuild src/js/main.js --bundle --sourcemap --watch --outfile=build/js/main.min.js",
+    "gooey:build": "esbuild blocks/gooey-search/frontend.entry.jsx --bundle --minify --sourcemap --format=iife --platform=browser --outfile=build/js/gooey-frontend.js --define:process.env.NODE_ENV=\"'production'\" && esbuild blocks/gooey-search/editor.jsx --bundle --minify --sourcemap --format=iife --platform=browser --outfile=build/js/gooey-editor.js --jsx-factory=wp.element.createElement --jsx-fragment=wp.element.Fragment",
+    "gooey:watch": "npm-run-all --parallel gooey:watch:front gooey:watch:editor",
+    "gooey:watch:front": "esbuild blocks/gooey-search/frontend.entry.jsx --bundle --sourcemap --format=iife --platform=browser --outfile=build/js/gooey-frontend.js --define:process.env.NODE_ENV=\"'production'\" --watch",
+    "gooey:watch:editor": "esbuild blocks/gooey-search/editor.jsx --bundle --sourcemap --format=iife --platform=browser --outfile=build/js/gooey-editor.js --jsx-factory=wp.element.createElement --jsx-fragment=wp.element.Fragment --watch",
+    "build": "npm run css:build && npm run js:build && npm run gooey:build",
+    "watch": "npm-run-all --parallel css:watch js:watch gooey:watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connorjbryant/ogig.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/connorjbryant/ogig/issues"
+  },
+  "homepage": "https://github.com/connorjbryant/ogig#readme",
+  "devDependencies": {
+    "esbuild": "^0.25.10",
+    "npm-run-all": "^4.1.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sass": "^1.93.2"
+  },
+  "dependencies": {
+    "framer-motion": "^11.18.2",
+    "three": "^0.181.2"
+  }
+}

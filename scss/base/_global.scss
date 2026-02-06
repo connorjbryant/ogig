@@ -1,0 +1,314 @@
+:root {
+  --ogig-button-bg: #32373c;      /* base */
+  --ogig-button-bg-hover: #444b52; /* solid hover, still dark enough */
+  --ogig-button-text: #ffffff;
+  --ogig-button-outline: var(--brand-color);;  /* brand color for focus */
+}
+
+/* Page as a column that fills the viewport */
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body, h1,h2,h3,h4,h5,h6, p, a, li, input, button, textarea, select {
+  font-family: "Figtree", Arial, sans-serif;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Figtree", Arial, sans-serif;
+}
+
+/* Base content buttons (NOT header/footer) */
+.site-main button,
+.site-main input[type="submit"],
+.site-main input[type="button"],
+.site-main input[type="reset"],
+.site-main .wp-element-button,
+.site-main .wp-block-button__link,
+.site-main .wp-block-search__button,
+.site-main .wc-block-components-button {
+  background-color: var(--ogig-button-bg);
+  color: var(--ogig-button-text);
+  border: 1px solid var(--ogig-button-bg);
+  border-radius: 0;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1.2;
+  box-shadow: none;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.95rem;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+/* Hover / active */
+.site-main button:hover,
+.site-main input[type="submit"]:hover,
+.site-main input[type="button"]:hover,
+.site-main input[type="reset"]:hover,
+.site-main .wp-element-button:hover,
+.site-main .wp-block-button__link:hover,
+.site-main .wp-block-search__button:hover,
+.site-main .wc-block-components-button:hover {
+  background-color: var(--ogig-button-bg-hover);
+  border-color: var(--ogig-button-bg-hover);
+  color: var(--ogig-button-text);
+}
+
+/* Focus-visible for accessibility */
+.site-main button:focus-visible,
+.site-main input[type="submit"]:focus-visible,
+.site-main input[type="button"]:focus-visible,
+.site-main input[type="reset"]:focus-visible,
+.site-main .wp-element-button:focus-visible,
+.site-main .wp-block-button__link:focus-visible,
+.site-main .wp-block-search__button:focus-visible,
+.site-main .wc-block-components-button:focus-visible {
+  outline: 2px solid var(--ogig-button-outline);
+  outline-offset: 2px;
+}
+
+/* WooCommerce buttons in content area */
+.site-main .woocommerce a.button,
+.site-main .woocommerce button.button,
+.site-main .woocommerce input.button,
+.site-main .woocommerce #respond input#submit,
+.site-main .woocommerce .woocommerce-message .button,
+.site-main .woocommerce .woocommerce-error .button,
+.site-main .woocommerce .woocommerce-info .button {
+  background-color: var(--ogig-button-bg);
+  color: var(--ogig-button-text);
+  border: 1px solid var(--ogig-button-bg);
+  border-radius: 0;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+  box-shadow: none;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+/* WooCommerce hover */
+.site-main .woocommerce a.button:hover,
+.site-main .woocommerce button.button:hover,
+.site-main .woocommerce input.button:hover,
+.site-main .woocommerce #respond input#submit:hover,
+.site-main .woocommerce .woocommerce-message .button:hover,
+.site-main .woocommerce .woocommerce-error .button:hover,
+.site-main .woocommerce .woocommerce-info .button:hover {
+  background-color: var(--ogig-button-bg-hover);
+  border-color: var(--ogig-button-bg-hover);
+  color: var(--ogig-button-text);
+}
+
+/* Price markuup */
+.woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product p.price, .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product span.price {
+  color: black;
+}
+
+a:where(:not(.wp-element-button)) {
+  color: black;
+}
+
+/* Body Scroll Lock */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* Main grows to fill leftover height */
+.site-main {
+  flex: 1 0 auto;
+  padding-bottom: var(--footer-h);
+}
+
+/* WordPress alignment helpers (works w/ classic + block themes) */
+.alignfull {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+.alignwide, .site-container {
+  width: min(calc(var(--container-max) + 200px), 100% - 2 * var(--gutter)) !important;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Make default content rows respect the gutter */
+// .site-container, .wp-site-blocks {
+//   padding-inline: var(--gutter);
+// }
+
+.site-container-custom {
+  padding-inline: 0;
+}
+
+/* Ensure media doesn’t overflow */
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* WooCommerce Styles */
+.woocommerce-notices-wrapper {
+  margin-top: 1rem;
+}
+
+/* Upsell styles WooCommerce */
+/* Wrapper block */
+.ogig-recommended-parts {
+  border-top: 1px solid #ddd;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  font-family: inherit;
+}
+
+.ogig-recommended-heading {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+  text-transform: none;
+}
+
+/* Each row (now a grid for thirds) */
+.ogig-rec-item {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  align-items: center; /* vertically centers content in each third */
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.ogig-rec-item:last-child {
+  border-bottom: 0;
+}
+
+/* Thumbnail (first third) */
+.ogig-rec-thumb {
+  justify-self: start; /* aligns to left if not full width */
+  width: 60px;
+  height: 60px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+  background: #fff;
+}
+
+.ogig-rec-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Text (title + price, second third) */
+.ogig-rec-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
+}
+
+/* Title */
+.ogig-rec-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+  margin: 0 0 0.25rem;
+}
+.ogig-rec-title:hover {
+  text-decoration: underline;
+}
+
+/* Price */
+.ogig-rec-price {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+.ogig-rec-price del {
+  color: #888;
+  font-weight: 400;
+  margin-right: 0.4rem;
+  font-size: 0.8rem;
+}
+.ogig-rec-price ins {
+  text-decoration: none;
+}
+
+/* Add to cart button (third third) */
+.ogig-rec-addtocart {
+  justify-self: end; /* aligns button to the right */
+  font-size: 0.8rem;
+  line-height: 1.2;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  text-decoration: none;
+  border: 0;
+  display: inline-block;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ogig-rec-addtocart:hover {
+  opacity: 0.85;
+}
+
+/* Bottom related products section */
+.ogig-related-bottom {
+  clear: both;
+  width: 100%;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.ogig-related-bottom .related > h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+@media screen and (max-width: 768px){
+  h1 {
+    font-size: 4rem;
+  }
+}

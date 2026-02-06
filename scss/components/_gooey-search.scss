@@ -1,0 +1,288 @@
+/* -------------------- Search Bar Styles --------------------- */
+/* Wrap */
+.gooey-search__wrap {
+  position: relative;
+  margin-inline: auto;
+  isolation: isolate;
+  overflow: visible;
+}
+
+/* Field row */
+.gooey-search__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Input */
+.gooey-search__input {
+  position: relative;
+  z-index: 2;
+  flex: 1 1 auto;
+  width: 100%;
+  border: 0;
+  outline: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #000;
+  caret-color: #000;
+  font-size: 16px;
+  line-height: 1.25;
+  padding: 16px 64px 16px 16px;
+}
+.gooey-search__wrap--open .gooey-search__icon:focus-visible {
+  outline: none;
+  border: 0;
+}
+.gooey-search__wrap--open .gooey-search__icon:focus-visible svg {
+  transform: scale(1.06);
+  stroke: currentColor;
+  stroke-width: 2.2;
+}
+.gooey-search__input::placeholder {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* Goo layer */
+.gooey-search__ink {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  filter: url(#gooey-search-goo);
+}
+.gooey-search__ink > * {
+  position: absolute;
+}
+
+/* Surface (animate RIGHT inset) */
+.gooey-search__surface {
+  left: 0;
+  right: 8px;
+  top: 8px;
+  bottom: 8px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+/* Lens */
+.gooey-search__lens {
+  background: #fff;
+  border-radius: 50%;
+  right: 8px;
+  top: 8px;
+  bottom: 8px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  margin: auto 0;
+}
+
+/* Hide handle by default */
+.gooey-search__handle {
+  display: none;
+}
+
+/* Icon overlay (not gooed) */
+.gooey-search__icon {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  right: 0;
+  background-color: white;
+  border: none;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  margin: auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  pointer-events: auto;
+  cursor: default;
+}
+.gooey-search__wrap--open .gooey-search__icon {
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* Results */
+.gooey-search__results {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: grid;
+  gap: 8px;
+  z-index: 10;
+  transform: translateY(100%);
+  background-color: #f2f2f2;
+  padding: 8px 0;
+}
+.gooey-search__result {
+  display: block;
+  text-decoration: none;
+  background-color: #f2f2f2;
+  color: black;
+  padding: 12px 16px;
+  outline: none;
+}
+.gooey-search__result:focus-visible,
+.gooey-search__result[aria-selected="true"] {
+  text-decoration: underline;
+}
+.gooey-search__result:hover {
+  text-decoration: underline;
+}
+
+.gooey-search__no-results {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  pointer-events: none;
+  color: black;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.icon-spinner {
+  animation: spin 0.9s linear infinite;
+}
+.gooey-search__icon[disabled] {
+  cursor: wait;
+  opacity: 0.75;
+  pointer-events: none; /* prevent clicks while loading */
+}
+
+/* Desktop-only: make results panel crisp + squared up */
+@media (min-width: 1025px) {
+  .gooey-search__results {
+    top: calc(100% + 10px);
+    bottom: auto;
+    transform: none;
+
+    border-radius: 14px;
+    overflow: hidden;
+
+    /* helps prevent weird “dip”/subpixel seams */
+    will-change: auto;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+
+    /* optional: makes it feel more like a real dropdown */
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+    padding: 8px; /* instead of 8px 0 */
+  }
+
+  .gooey-search__result {
+    border-radius: 10px;
+  }
+}
+
+/* Show native lookalike when JS is OFF; hide when JS is ON */
+.no-js .gooey-search__native {
+  display: block;
+}
+.has-js .gooey-search__native {
+  display: none;
+}
+
+/* Hide the React-enhanced form when JS is OFF; show when JS is ON */
+.no-js .js-gooey-search {
+  display: none;
+}
+.has-js .js-gooey-search {
+  display: block;
+}
+
+/* Make native lookalike visually identical */
+.no-js .gooey-search__native .gooey-search__wrap {
+  position: relative;
+  margin-inline: auto;
+  isolation: isolate;
+  overflow: visible;
+}
+.no-js .gooey-search__native .gooey-search__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.no-js .gooey-search__native .gooey-search__input {
+  position: relative;
+  z-index: 2;
+  flex: 1 1 auto;
+  width: 100%;
+  border: 0;
+  outline: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #000;
+  caret-color: #000;
+  font-size: 16px;
+  line-height: 1.25;
+}
+/* Goo layer present statically (no motion, still gooey) */
+.no-js .gooey-search__native .gooey-search__ink {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  filter: url(#gooey-search-goo);
+}
+.no-js .gooey-search__native .gooey-search__ink > * {
+  position: absolute;
+}
+.no-js .gooey-search__native .gooey-search__surface {
+  left: 0;
+  right: 8px;
+  top: 8px;
+  bottom: 8px;
+  border-radius: 999px;
+  background: #fff;
+}
+.no-js .gooey-search__native .gooey-search__lens {
+  background: #fff;
+  border-radius: 50%;
+  right: 8px;
+  top: 8px;
+  bottom: 8px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  margin: auto 0;
+}
+.no-js .gooey-search__native .gooey-search__handle {
+  display: none;
+}
+/* Icon should be visible/clickable in no-JS (matches open state) */
+.no-js .gooey-search__native .gooey-search__icon {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  background: #fff;
+  border: 0;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  margin: auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+/* Mimic “open” state via :focus-within and :focus-visible */
+.no-js .gooey-search__icon:focus-visible {
+  outline: none;
+  border: 0;
+}
+.no-js
+  .gooey-search__native
+  .gooey-search__wrap:focus-within
+  .gooey-search__icon
+  svg {
+  transform: scale(1.06);
+  stroke-width: 2.2;
+}

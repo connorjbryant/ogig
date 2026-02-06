@@ -1,0 +1,80 @@
+{
+  "apiVersion": 2,
+  "name": "ogig/hero",
+  "title": "Hero",
+  "category": "layout",
+  "icon": "universal-access-alt",
+  "textdomain": "ogig",
+  "supports": {
+    "align": ["full", "wide"],
+    "html": false
+  },
+
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "default": "Precision Magnetic Solutions"
+    },
+    "heading": {
+      "type": "string",
+      "default": ""
+    },
+    "body": {
+      "type": "string",
+      "default": "Discover engineered magnetic systems that streamline precast workflows, reduce setup time, and elevate quality standards across your production line."
+    },
+
+    "primaryButtonLabel": {
+      "type": "string",
+      "default": "Explore Products"
+    },
+    "primaryButtonUrl": {
+      "type": "string",
+      "default": "#"
+    },
+
+    "secondaryButtonLabel": {
+      "type": "string",
+      "default": "Talk with an Engineer"
+    },
+    "secondaryButtonUrl": {
+      "type": "string",
+      "default": "#"
+    },
+
+    "stat1Value": {
+      "type": "string",
+      "default": "40+"
+    },
+    "stat1Label": {
+      "type": "string",
+      "default": "Years in precision manufacturing"
+    },
+
+    "stat2Value": {
+      "type": "string",
+      "default": "500+"
+    },
+    "stat2Label": {
+      "type": "string",
+      "default": "Magnetic precast projects delivered"
+    },
+
+    "stat3Value": {
+      "type": "string",
+      "default": "98%"
+    },
+    "stat3Label": {
+      "type": "string",
+      "default": "Client satisfaction across projects"
+    },
+
+    "imageId": {
+      "type": "number",
+      "default": 0
+    }
+  },
+
+  "editorScript": "theme-hero-editor",
+  "render": "file:./render.php"
+}

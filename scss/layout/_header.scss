@@ -1,0 +1,628 @@
+/* =========================================================
+   OGIG Header (Induscity v4 inspired) — CLEAN CSS
+   Desktop: grid header + horizontal nav + hover dropdowns
+   Mobile: hamburger => fixed panel + full-width search/results
+   ========================================================= */
+
+:root { --ogig-bp-mobile: 1024px; }
+
+/* DO NOT style the global `header {}` tag — it will affect other headers */
+
+/* Sticky header wrapper */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  overflow: visible;
+}
+
+.site-header .site-container { overflow: visible; }
+
+/* Page offset for fixed header */
+body.has-fixed-header { padding-top: var(--header-h, 130px); }
+
+/* Overlay behind menu when open on mobile */
+.site-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  z-index: 900;
+}
+html.menu-open .site-overlay {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* =========================================================
+   HARD RESET for your nav ONLY (kills bullets/indent forever)
+   ========================================================= */
+nav.main-navigation.mobile-menu ul,
+nav.main-navigation.mobile-menu li {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+nav.main-navigation.mobile-menu li::before,
+nav.main-navigation.mobile-menu li::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* =========================================================
+   TOPBAR
+   ========================================================= */
+.header-topbar {
+  background: #0b0b0b;
+  color: #fff;
+  position: relative;
+  z-index: 200;
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  min-height: 42px;
+  line-height: 30px;
+  gap: 16px;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.topbar-check {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--brand-color);
+  font-size: 12px;
+}
+
+.topbar-tagline {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.95;
+  font-size: 13px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar-item {
+  position: relative;
+  padding: 0 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-item:first-child { padding-left: 0; }
+.topbar-item:last-child  { padding-right: 0; }
+
+.topbar-item:not(:last-child)::after {
+  content: "";
+  width: 1px;
+  height: 20px;
+  background: #242424;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.topbar-phone {
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  opacity: 0.95;
+}
+.topbar-phone:hover { opacity: 1; text-decoration: underline; }
+
+.topbar-contact { position: relative; }
+
+.topbar-contact__btn {
+  background: var(--brand-color);
+  color: #fff;
+  border: 0;
+  border-radius: 3px;
+  height: 34px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.topbar-contact__btn:hover { filter: brightness(0.98); }
+
+.topbar-contact__menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  background: #fff;
+  color: #111;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 8px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+  min-width: 190px;
+  padding: 8px;
+  z-index: 2000;
+}
+
+.topbar-contact__link {
+  display: block;
+  padding: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+}
+.topbar-contact__link:hover {
+  background: rgba(229,57,53,0.10);
+  color: var(--brand-color);
+}
+
+/* =========================================================
+   MAIN HEADER ROW
+   ========================================================= */
+.header-main { background: #fff; padding: 20px 0; }
+
+.header-inner--v4 {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto; /* logo | dealer | nav | actions */
+  align-items: center;
+  gap: 18px;
+}
+
+.site-branding .custom-logo-link img {
+  max-height: 100px;
+  width: auto;
+  display: block;
+}
+
+.site-branding .site-title { margin: 0; font-size: 1.5rem; line-height: 1; }
+.site-branding .site-title a { text-decoration: none; color: #000; }
+
+.header-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 170px;
+  height: 50px;
+  line-height: 52px;
+  border-radius: 3px;
+  padding: 0 20px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 0;
+  transition: 0.2s ease;
+  white-space: nowrap;
+}
+.header-btn--dealer,
+.header-btn--cta {
+  background: var(--brand-color);
+  color: #fff;
+}
+.header-btn:hover { filter: brightness(0.98); }
+
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* =========================================================
+   CART
+   ========================================================= */
+.header__cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.header__cart a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  position: relative;
+}
+.header__cart svg {
+  width: 28px;
+  height: 28px;
+  margin-right: 0.5rem;
+  transform: translateY(2px);
+}
+.header__cart-count {
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  background: var(--brand-color);
+  color: #fff;
+  font-weight: 800;
+  line-height: 1;
+  min-width: 1.4em;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  padding: 0.2em;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 10;
+  transform: translateY(-50%);
+}
+
+/* =========================================================
+   HAMBURGER
+   ========================================================= */
+.mobile-hamburger {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  gap: 4px;
+  z-index: 1101;
+}
+.mobile-hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+.mobile-hamburger[aria-expanded="true"] span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.mobile-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.mobile-hamburger[aria-expanded="true"] span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* =========================================================
+   CHEVRON INDICATORS (DESKTOP + MOBILE)
+   Uses pure CSS triangles (no Font Awesome dependency)
+   ========================================================= */
+
+/* Any item that has children gets chevron space */
+nav.main-navigation.mobile-menu .menu-item-has-children > a {
+  position: relative;
+  padding-right: 22px; /* room for chevron */
+}
+
+/* Default chevron: down triangle */
+nav.main-navigation.mobile-menu .menu-item-has-children > a::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 5px 0 5px;
+  border-color: #222 transparent transparent transparent;
+  opacity: 0.85;
+  transition: transform 0.25s ease, border-top-color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Nested submenu parents show a RIGHT chevron */
+nav.main-navigation.mobile-menu .sub-menu .menu-item-has-children > a::after {
+  border-width: 5px 0 5px 6px;
+  border-color: transparent transparent transparent #222;
+  right: 10px;
+}
+
+/* Desktop hover color */
+@media (min-width: 1025px) {
+  nav.main-navigation.mobile-menu > ul.nav-menu > li.menu-item-has-children:hover > a::after {
+    border-top-color: var(--brand-color);
+    opacity: 1;
+  }
+
+  nav.main-navigation.mobile-menu .sub-menu li.menu-item-has-children:hover > a::after {
+    border-left-color: var(--brand-color);
+    opacity: 1;
+  }
+}
+
+/* Mobile rotate when open */
+@media (max-width: 1024px) {
+  nav.main-navigation.mobile-menu .menu-item-has-children.sub-open > a::after {
+    transform: translateY(-50%) rotate(180deg);
+    border-top-color: var(--brand-color);
+    opacity: 1;
+  }
+
+  /* For nested ones, rotate the right chevron too (optional) */
+  nav.main-navigation.mobile-menu .sub-menu .menu-item-has-children.sub-open > a::after {
+    transform: translateY(-50%) rotate(90deg);
+    border-left-color: var(--brand-color);
+  }
+}
+
+/* =========================================================
+   NAV (DESKTOP)
+   ========================================================= */
+@media (min-width: 1025px) {
+  .header-search--mobile { display: none !important; }
+  .mobile-hamburger, .no-js-banner { display: none !important; }
+
+  nav.main-navigation.mobile-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    position: static;
+    background: transparent;
+    max-height: none;
+    overflow: visible;
+  }
+
+  nav.main-navigation.mobile-menu > ul.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+
+  nav.main-navigation.mobile-menu > ul.nav-menu > li { position: relative; }
+
+  nav.main-navigation.mobile-menu > ul.nav-menu > li > a {
+    text-decoration: none;
+    color: #222;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.4px;
+    padding: 0;
+  }
+  nav.main-navigation.mobile-menu > ul.nav-menu > li > a:hover {
+    color: var(--brand-color);
+  }
+
+  /* Dropdowns */
+  nav.main-navigation.mobile-menu .sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 0.5rem 0;
+    background: #fff;
+    min-width: 220px;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    border-top: 3px solid var(--brand-color);
+    z-index: 1000;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.22s ease, visibility 0.22s ease, transform 0.22s ease;
+    pointer-events: none;
+  }
+
+  nav.main-navigation.mobile-menu li:hover > .sub-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  nav.main-navigation.mobile-menu .sub-menu a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 14px;
+  }
+
+  nav.main-navigation.mobile-menu .sub-menu a:hover {
+    background: rgba(229,57,53,0.10);
+    color: var(--brand-color);
+  }
+}
+
+/* =========================================================
+   NAV (MOBILE)
+   ========================================================= */
+@media (max-width: 1024px) {
+  .header-topbar { display: none; }
+
+  .header-main { padding: 14px 0; }
+
+  .header-inner--v4 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .header-btn--dealer,
+  .header-btn--cta { display: none !important; }
+
+  .mobile-hamburger { display: flex; }
+
+  /* Mobile panel */
+  nav.main-navigation.mobile-menu{
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: var(--header-h, 120px);
+    z-index: 1100;
+    background: #fff;
+    max-height: calc(100vh - var(--header-h, 120px));
+    overflow-y: auto;
+  }
+  nav.main-navigation.mobile-menu.active{ display: block; }
+
+  /* Search at top of panel */
+  nav.main-navigation.mobile-menu .header-search--mobile{
+    width: 100%;
+    padding: 14px var(--gutter, 16px);
+    background: #f8f9fa;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+
+  /* Links wrapper padding (this is the missing padding you mentioned) */
+  nav.main-navigation.mobile-menu > ul.nav-menu{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px var(--gutter, 16px) 18px;  /* <-- adds “panel padding” */
+    gap: 0;
+  }
+
+  nav.main-navigation.mobile-menu > ul.nav-menu > li{
+    width: 100%;
+  }
+
+  nav.main-navigation.mobile-menu > ul.nav-menu > li > a{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    color: #222;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-size: 1.05rem;
+    text-decoration: none;
+  }
+
+  /* Mobile submenus */
+  nav.main-navigation.mobile-menu .sub-menu{
+    display: none;
+    padding: 0;
+    margin: 0;
+  }
+  nav.main-navigation.mobile-menu .sub-open > .sub-menu{
+    display: block;
+  }
+
+  nav.main-navigation.mobile-menu .sub-menu li a{
+    display: block;
+    padding: 14px 0 14px 22px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    text-transform: none;
+    font-weight: 600;
+    color: #222;
+    text-decoration: none;
+  }
+
+  nav.main-navigation.mobile-menu .sub-menu .sub-menu li a{
+    padding-left: 34px;
+  }
+
+  .site-branding .custom-logo-link img { max-height: 90px; }
+
+  /* If desktop hover CSS exists anywhere, this prevents it from forcing dropdowns open on mobile */
+  nav.main-navigation.mobile-menu .sub-menu {
+    position: static !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    min-width: 0 !important;
+  }
+
+  /* Reset any inherited desktop dropdown arrow if exists */
+  nav.main-navigation.mobile-menu .menu-item-has-children > a::after {
+    content: "";
+    display: inline-block;
+    width: 0; height: 0;
+    margin-left: 8px;
+    vertical-align: 3px;
+    border-style: solid;
+    border-width: 6px 5px 0 5px;
+    border-color: #222 transparent transparent transparent;
+    transition: transform 0.35s ease;
+  }
+
+  /* Rotate when submenu is open */
+  nav.main-navigation.mobile-menu .menu-item-has-children.sub-open > a::after {
+    transform: rotate(180deg);
+  }
+
+  /* Optional: color change or thicker arrow */
+  nav.main-navigation.mobile-menu .menu-item-has-children > a:hover::after,
+  nav.main-navigation.mobile-menu .menu-item-has-children.sub-open > a::after {
+    border-top-color: var(--brand-color);
+  }
+
+  /* And make sure the ul has consistent padding */
+  nav.main-navigation.mobile-menu > ul.nav-menu {
+    padding: 12px var(--gutter, 16px) 24px;
+  }
+
+  nav.main-navigation.mobile-menu .header-search--mobile .gooey-search__wrap {
+    position: static !important;
+    overflow: visible !important;
+  }
+
+  nav.main-navigation.mobile-menu .header-search--mobile .gooey-search__results {
+    position: static !important;      /* key */
+    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+
+    display: block !important;
+    width: 100% !important;
+    margin: 10px 0 0 0;
+
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 10px;
+    box-shadow: none !important;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  /* Optional: give results breathing room before the menu links start */
+  nav.main-navigation.mobile-menu .header-search--mobile {
+    padding-bottom: 18px;
+  }
+}
+
+/* Small screens */
+@media (max-width: 400px) {
+  .header__cart-count {
+    font-size: 0.65rem;
+    top: -6px;
+    right: -4px;
+  }
+
+  nav.main-navigation.mobile-menu > ul.nav-menu > li > a {
+    font-size: 1rem;
+    padding: 15px 0;
+  }
+}

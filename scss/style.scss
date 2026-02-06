@@ -1,0 +1,81 @@
+/* Base layer */
+@use "base/variables";
+@use "base/global";
+
+/* Blocks */
+@use "blocks/hero";
+
+/* Layout */
+@use "layout/header";
+@use "layout/footer";
+
+/* Components */
+@use "components/gooey-search";
+@use "components/forklift-add-to-cart";
+
+/* Utilities */
+@use "utilities/helpers";
+
+/* ACF Modules */
+@use "acf/product-cards";
+
+/* WooCommerce */
+/* Hide the sad face icon completely (including spacing) on cart page */
+.wc-block-cart__empty-cart__title.with-empty-cart-icon::before {
+  display: none !important;
+}
+
+/* Price tag */
+.woocommerce:where(body:not(.woocommerce-uses-block-theme)) ul.products li.product .price {
+  color: var(--brand-color);;
+}
+
+.sku {
+  margin-right: 1rem;
+}
+
+/* Search styles */
+.ogig-search-breadcrumbs {
+  margin-top: 1rem;
+}
+
+/* Search results page polish */
+.ogig-search-header {
+  margin: 1.25rem 0 1rem;
+  background-color: white;
+}
+
+.ogig-search-title {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.1;
+}
+
+.ogig-search-section {
+  margin-top: 2rem;
+}
+
+.ogig-search-subtitle {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.ogig-search-list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.ogig-search-list__item {
+  margin: 0.25rem 0;
+}
+
+.ogig-search-pagination {
+  margin-top: 1.5rem;
+
+  .page-numbers {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+}

@@ -1,0 +1,52 @@
+/* Height of header is 75px. All content in the header is centered.
+The submenu height is anchored to the bottom of the header.
+The submenu has to go down 46 pixels (75px total header height/2 = 35px
+then add 16 pixels because of the padding of header to get 46 pixels */
+:root {
+  --container-max: 1200px; /* global website width */
+  --gutter: clamp(12px, 3vw, 24px);
+  --sticky-top: 0px;
+  --footer-h: 72px;
+  --submenu-gap: 46px;
+  --brand-color: #e83f39;
+}
+
+@mixin button-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 22px rgba(15, 23, 42, 0.12);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--ogig-button-outline);
+        outline-offset: 2px;
+    }
+
+    &--primary {
+        background-color: var(--brand-color);;
+        border-color: var(--brand-color);;
+        color: #ffffff;
+    }
+
+    &--ghost {
+        background-color: #ffffff;
+        border-color: #d1d5db;
+        color: #111827;
+    }
+}

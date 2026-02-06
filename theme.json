@@ -1,0 +1,96 @@
+{
+  "version": 2,
+  "settings": {
+    "supports": {
+      "anchor": true
+    },
+    "border": {
+      "radius": true,
+      "color": true,
+      "width": true
+    },
+    "color": {
+      "custom": false,
+      "link": true,
+      "defaultGradients": false,
+      "defaultPalette": false,
+      "palette": [
+        { "name": "Primary",   "slug": "primary",   "color": "#73C167" },
+        { "name": "Secondary", "slug": "secondary", "color": "#D6EBF0" },
+        { "name": "Tertiary",  "slug": "tertiary",  "color": "#003340" },
+        { "name": "Offwhite",  "slug": "offwhite",  "color": "#EAEBEC" },
+        { "name": "Gray",      "slug": "gray",      "color": "#949CA1" },
+        { "name": "Contrast",  "slug": "contrast",  "color": "#000000" },
+        { "name": "Base",      "slug": "base",      "color": "#ffffff" }
+      ]
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "blockGap": true,
+      "units": ["px", "%", "em", "rem", "vw"],
+      "spacingScale": {
+        "operator": "+",
+        "increment": 1,
+        "steps": 7,
+        "mediumStep": 2,
+        "unit": "rem"
+      }
+    },
+    "layout": {
+      "contentSize": "1040px",
+      "wideSize": "1440px"
+    },
+    "typography": {
+      "customFontSize": false,
+      "lineHeight": true,
+      "dropCap": false,
+      "fontStyle": true,
+      "fontWeight": true,
+      "letterSpacing": false,
+      "textDecoration": true,
+      "textTransform": true,
+      "fontFamilies": [
+        {
+          "fontFamily": "zimmer, sans-serif",
+          "slug": "zimmer",
+          "name": "Zimmer"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "level-0", "size": "0.75rem", "name": "Level 0" },
+        { "slug": "level-1", "size": "1rem",    "name": "Level 1" },
+        { "slug": "level-2", "size": "1.25rem", "name": "Level 2" },
+        { "slug": "level-3", "size": "1.5rem",  "name": "Level 3" },
+        { "slug": "level-4", "size": "2rem",    "name": "Level 4" },
+        { "slug": "level-5", "size": "4rem",    "name": "Level 5" },
+        { "slug": "level-6", "size": "6rem",    "name": "Level 6" }
+      ]
+    },
+    "custom": {
+      "spacing": {
+        "baseline": "2rem"
+      }
+    }
+  },
+  "styles": {
+    "color": {
+      "text": "var(--wp--preset--color--contrast)"
+    },
+    "typography": {
+      "lineHeight": "1.5",
+      "fontFamily": "var(--wp--preset--font-family--zimmer)"
+    },
+    "elements": {
+      "h1": { "typography": { "fontSize": "var(--wp--preset--font-size--level-6)", "lineHeight": "1.25" } },
+      "h2": { "typography": { "fontSize": "var(--wp--preset--font-size--level-5)", "lineHeight": "1.25" } },
+      "h3": { "typography": { "fontSize": "var(--wp--preset--font-size--level-4)", "lineHeight": "1.25" } },
+      "h4": { "typography": { "fontSize": "var(--wp--preset--font-size--level-3)", "lineHeight": "1.25" } },
+      "h5": { "typography": { "fontSize": "var(--wp--preset--font-size--level-2)", "lineHeight": "1.25" } },
+      "h6": { "typography": { "fontSize": "var(--wp--preset--font-size--level-1)", "lineHeight": "1.25" } }
+    }
+  },
+  
+  "customTemplates": {},
+  "templateParts": {}
+}

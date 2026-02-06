@@ -1,0 +1,16 @@
+{
+  "apiVersion": 2,
+  "name": "ogig/gooey-search",
+  "title": "Gooey Search",
+  "category": "widgets",
+  "icon": "search",
+  "description": "Animated gooey search bar (Framer Motion + React).",
+  "supports": { "align": ["full", "wide"] },
+  "attributes": {
+    "placeholder": { "type": "string", "default": "Search…" }
+  },
+  "editorScript": "ogig-gooey-editor",
+  "viewScript": "ogig-gooey-frontend",
+  "render": "file:./render.php",
+  "textdomain": "ogig"
+}
