@@ -32,7 +32,7 @@ All source files live in scss/ and src/js/
 All compiled files live in build/ (what WordPress enqueues)
 
 Development Setup
-Make sure you have Node.js installed (v16+ recommended)
+Make sure you have Node.js installed (v18+ recommended)
 
 Helpful Commands:
 npm install 
