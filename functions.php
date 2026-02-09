@@ -75,7 +75,7 @@ add_action('wp_enqueue_scripts', function () {
       wp_enqueue_script(
         'theme-main',
         get_stylesheet_directory_uri() . '/build/js/main.min.js',
-        ['jquery'],
+        ['jquery', 'aos'],
         theme_file_ver( $build_js_fs ),
         true
       );
@@ -85,7 +85,7 @@ add_action('wp_enqueue_scripts', function () {
         wp_enqueue_script(
             'theme-main',
             get_stylesheet_directory_uri() . '/js/main.js',
-            ['jquery'],
+            ['jquery', 'aos'],
             theme_file_ver( $plain_js_fs ),
             true
         );

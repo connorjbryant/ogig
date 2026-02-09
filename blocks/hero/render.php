@@ -39,7 +39,7 @@ if ( $image_id ) {
 }
 ?>
 <section class="heroblock alignfull">
-  <div class="heroblock__inner">
+  <div class="heroblock__inner" data-aos="zoom-in">
     <div class="heroblock__content">
       <?php if ( $eyebrow ) : ?>
         <p class="heroblock__eyebrow"><?php echo esc_html( $eyebrow ); ?></p>

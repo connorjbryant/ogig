@@ -68,11 +68,11 @@ $active_count = count($active_cards);
 
   <div class="ogig-pch__inner site-container">
     <?php if (!empty($heading)) : ?>
-      <h2 class="ogig-pch__title"><?php echo esc_html($heading); ?></h2>
+      <h2 class="ogig-pch__title" data-aos="fade-down"><?php echo esc_html($heading); ?></h2>
     <?php endif; ?>
 
     <?php if ($active_count > 0) : ?>
-      <div class="ogig-pch__grid">
+      <div class="ogig-pch__grid" data-aos="zoom-in">
         <?php foreach ($active_cards as $card): ?>
           <article class="ogig-pch__card">
             <?php if (!empty($card['title'])): ?>
