@@ -34,10 +34,10 @@ $topbar_tagline = 'Precision Craftsmanship Since 1969, Engineered for Excellence
 <html <?php language_attributes(); ?> class="no-js">
 <head>
   <script>
-  // mark JS capability ASAP
-  document.documentElement.className =
-    document.documentElement.className.replace(/\bno-js\b/, '') + ' has-js';
-</script>
+    // mark JS capability ASAP
+    document.documentElement.className =
+      document.documentElement.className.replace(/\bno-js\b/, '') + ' has-js';
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="profile" href="http://gmpg.org/xfn/11">
