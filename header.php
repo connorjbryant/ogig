@@ -44,7 +44,7 @@ $topbar_tagline = 'Precision Craftsmanship Since 1969, Engineered for Excellence
   <?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body id="page" <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
 <div class="site-overlay" aria-hidden="true"></div>
