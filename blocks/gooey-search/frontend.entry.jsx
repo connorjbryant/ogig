@@ -53,6 +53,7 @@ const GooeySearch = ({ placeholder = "Search…", action = "/" }) => {
   const abortRef = useRef(null);
   const latestQueryRef = useRef("");
   const debounceRef = useRef(null);
+  const normalizeQuery = (s) => (s || "").trim();
 
   // When true, let the browser submit the form to action/?s=...
   const allowNativeSubmitRef = useRef(false);
@@ -78,11 +79,14 @@ const GooeySearch = ({ placeholder = "Search…", action = "/" }) => {
 
   // Debounced live search on value change (with AbortController)
   useEffect(() => {
-    latestQueryRef.current = value;
+    const q = normalizeQuery(value);
+    latestQueryRef.current = q;
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
 
-    if (!value.trim()) {
+    if (!q) {
+      // IMPORTANT: wipe the "latest" query too so stale responses get ignored
+      latestQueryRef.current = "";
       abortRef.current?.abort();
       setResults([]);
       setLoading(false);
@@ -102,17 +106,32 @@ const GooeySearch = ({ placeholder = "Search…", action = "/" }) => {
         setLoading(true);
 
         const r = await fetch(
-          `/wp-json/ogig/v1/search?s=${encodeURIComponent(value)}`,
+          `/wp-json/ogig/v1/search?s=${encodeURIComponent(q)}`,
           { signal: controller.signal }
         );
 
         const data = await r.json();
-        setResults(Array.isArray(data) ? data : []);
+
+        // ✅ Ignore stale responses
+        if (controller.signal.aborted) return;
+        if (latestQueryRef.current !== q) return;
+
+        const cleaned = Array.isArray(data)
+          ? data.filter((item) => item && item.url && String(item.title || "").trim().length > 0)
+          : [];
+
+        setResults(cleaned);
         setOpen(true);
       } catch (err) {
-        if (err?.name !== "AbortError") setResults([]);
+        if (err?.name !== "AbortError") {
+          // Only update if still relevant
+          if (latestQueryRef.current === q) {
+            setResults([]);
+            setOpen(true);
+          }
+        }
       } finally {
-        if (!controller.signal.aborted) {
+        if (!controller.signal.aborted && latestQueryRef.current === q) {
           setLoading(false);
         }
       }
@@ -122,6 +141,7 @@ const GooeySearch = ({ placeholder = "Search…", action = "/" }) => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
   }, [value]);
+
 
   // Prevent scrolling to top when input is focused on mobile
   useEffect(() => {
@@ -146,8 +166,10 @@ const GooeySearch = ({ placeholder = "Search…", action = "/" }) => {
     return () => abortRef.current?.abort();
   }, []);
   const doSearch = async () => {
-    // No query → reset everything
-    if (!value.trim()) {
+    const q = normalizeQuery(value);
+
+    if (!q) {
+      latestQueryRef.current = "";
       abortRef.current?.abort();
       setResults([]);
       setPending(false);
@@ -156,36 +178,46 @@ const GooeySearch = ({ placeholder = "Search…", action = "/" }) => {
       return;
     }
 
-    // Cancel any in-flight request
-    abortRef.current?.abort();
+    latestQueryRef.current = q;
 
+    abortRef.current?.abort();
     const controller = new AbortController();
     abortRef.current = controller;
 
-    // Manual search = not typing anymore
     setPending(false);
-    setLoading(false);
+    setLoading(true);
 
     try {
       const r = await fetch(
-        `/wp-json/ogig/v1/search?s=${encodeURIComponent(value)}`,
+        `/wp-json/ogig/v1/search?s=${encodeURIComponent(q)}`,
         { signal: controller.signal }
       );
 
       const data = await r.json();
-      setResults(Array.isArray(data) ? data : []);
+
+      if (controller.signal.aborted) return;
+      if (latestQueryRef.current !== q) return;
+
+      const cleaned = Array.isArray(data)
+        ? data.filter((item) => item && item.url && String(item.title || "").trim().length > 0)
+        : [];
+
+      setResults(cleaned);
       setOpen(true);
     } catch (err) {
       if (err?.name !== "AbortError") {
-        setResults([]);
-        setOpen(true);
+        if (latestQueryRef.current === q) {
+          setResults([]);
+          setOpen(true);
+        }
       }
     } finally {
-      if (!controller.signal.aborted) {
+      if (!controller.signal.aborted && latestQueryRef.current === q) {
         setLoading(false);
       }
     }
   };
+
 
   const onInputKeyDown = (e) => {
     // Escape closes regardless
@@ -339,7 +371,24 @@ const GooeySearch = ({ placeholder = "Search…", action = "/" }) => {
           name="s" // critical for native WP search fallback
           value={value}
           onFocus={() => { setOpen(!!value.trim()); setActiveIndex(-1); }}
-          onChange={(e) => { setValue(e.target.value); setActiveIndex(-1); setPending(true); }}
+          onChange={(e) => {
+            const next = e.target.value;
+            setValue(next);
+            setActiveIndex(-1);
+
+            if (!next.trim()) {
+              latestQueryRef.current = "";
+              if (debounceRef.current) clearTimeout(debounceRef.current);
+              abortRef.current?.abort();
+              setResults([]);
+              setPending(false);
+              setLoading(false);
+              setOpen(false);
+              return;
+            }
+
+            setPending(true);
+          }}
           onKeyDown={onInputKeyDown}
           // ARIA adjustments
           role="searchbox"
@@ -405,7 +454,7 @@ const GooeySearch = ({ placeholder = "Search…", action = "/" }) => {
       </div>
 
       <AnimatePresence>
-        {open && (results.length > 0 || showNoResults) && (
+        {open && value.trim().length > 0 && (results.length > 0 || showNoResults) && (
           <div
             id={listboxId}
             className="gooey-search__results js-gooey-search-results"

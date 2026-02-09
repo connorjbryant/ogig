@@ -389,7 +389,6 @@ nav.main-navigation.mobile-menu {
    ========================================================= */
 @media (min-width: 1025px) {
   .header-search--mobile { display: none !important; }
-  .mobile-hamburger, .no-js-banner { display: none !important; }
 
   nav.main-navigation.mobile-menu {
     display: flex;
@@ -494,7 +493,11 @@ nav.main-navigation.mobile-menu {
     }
 
     /* Flyout for deeper levels (to the right) */
-    .sub-menu .sub-menu {
+    /* Each submenu item becomes positioning context */
+    .sub-menu li { position: relative; }
+
+    /* Flyout for deeper levels (to the right) — align to the LI that owns it */
+    .sub-menu li.menu-item-has-children > .sub-menu {
       top: 0;
       left: 100%;
       margin-left: 6px;
@@ -565,6 +568,12 @@ nav.main-navigation.mobile-menu {
         box-shadow: none !important;
         overflow: hidden;
         z-index: 1;
+        display: none !important;
+      }
+
+      /* only show when React adds the open class */
+      .gooey-search__wrap--open .gooey-search__results {
+        display: block !important;
       }
     }
 
@@ -672,3 +681,34 @@ nav.main-navigation.mobile-menu {
     padding: 15px 0;
   }
 }
+
+/* Results should never be interactive unless the component says it's open */
+.gooey-search__results {
+  pointer-events: auto;
+}
+
+/* When not open, kill any hidden/empty results panel interactions */
+.gooey-search__wrap:not(.gooey-search__wrap--open) .gooey-search__results {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+html.has-js .gooey-search__native {
+  display: none !important;
+}
+
+.no-js-banner { display: none; }
+
+html.no-js .no-js-banner {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(229,57,53,0.10);
+  border: 1px solid rgba(229,57,53,0.25);
+  color: #111;
+  margin-bottom: 12px;
+  font-size: 14px;
+  position: relative;
+  z-index: 5000;
+}
+html.no-js .no-js-banner p { margin: 0; }
