@@ -508,6 +508,31 @@ nav.main-navigation.mobile-menu {
   }
 }
 
+/* Magic underline like Induscity */
+@media (min-width: 1025px) {
+
+  nav.main-navigation.mobile-menu ul.nav-menu{
+    position: relative; /* anchor for the underline bar */
+  }
+
+  /* the bar element we inject with JS */
+  nav.main-navigation.mobile-menu ul.nav-menu > li#ogig-active-line{
+    position: absolute;
+    bottom: -14px;       /* tweak to match your screenshot */
+    height: 3px;
+    background: var(--brand-color);
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: 5;
+    transition: left .18s ease, width .18s ease;
+  }
+
+  /* optional: make current link text red too */
+  nav.main-navigation.mobile-menu ul.nav-menu > li.ogig-is-current > a{
+    color: var(--brand-color);
+  }
+}
+
 /* =========================================================
    NAV (MOBILE)
    Fixes “weird” nested submenu by using flex rows + consistent indents

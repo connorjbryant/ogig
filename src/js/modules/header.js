@@ -132,4 +132,103 @@ export function initHeader($) {
 
     closeMobileMenu();
   });
+
+  // --- Desktop active nav underline (Induscity-style) ---
+  function initDesktopActiveLine() {
+    const BP = 1024;
+    const $menu = $nav.find('ul.nav-menu').first();
+    if (!$menu.length) return;
+
+    // Only desktop
+    if (window.innerWidth <= BP) {
+      $menu.find('#ogig-active-line').remove();
+      $menu.find('> li').removeClass('ogig-is-current');
+      return;
+    }
+
+    // Create the underline element if missing
+    let $line = $menu.find('#ogig-active-line');
+    if (!$line.length) {
+      $menu.append('<li id="ogig-active-line"></li>');
+      $line = $menu.find('#ogig-active-line');
+    }
+
+    // Pick the "current" item:
+    // 1) Prefer WP current classes if they exist
+    // 2) Fallback to URL pathname match
+    let $currentLi = $menu.find('> li.current-menu-item, > li.current_page_item, > li.current-menu-ancestor, > li.current-menu-parent').first();
+
+    if (!$currentLi.length) {
+      const curPath = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
+
+      $menu.find('> li > a').each(function () {
+        const a = this;
+        let aPath = '/';
+        try {
+          aPath = (new URL(a.href, window.location.origin)).pathname.replace(/\/+$/, '') || '/';
+        } catch (e) {}
+
+        if (aPath === curPath) {
+          $currentLi = $(a).parent('li');
+          return false;
+        }
+      });
+    }
+
+    // If we still don’t have a match, hide the line and bail
+    if (!$currentLi.length) {
+      $line.css({ width: 0, left: 0 });
+      return;
+    }
+
+    // Mark text red (optional)
+    $menu.find('> li').removeClass('ogig-is_current ogig-is-current');
+    $currentLi.addClass('ogig-is-current');
+
+    // Position the line under the anchor text width (like your screenshot)
+    function moveLineTo($li, animate = true) {
+      const $a = $li.children('a');
+      if (!$a.length) return;
+
+      const menuRect = $menu[0].getBoundingClientRect();
+      const aRect = $a[0].getBoundingClientRect();
+
+      const width = aRect.width * 1; // bar smaller than text (tweak: 0.35–0.6)
+      const left = (aRect.left - menuRect.left) + (aRect.width / 2) - (width / 2);
+
+      if (!animate) $line.css('transition', 'none');
+      else $line.css('transition', '');
+
+      $line.css({ width: width + 'px', left: left + 'px' });
+
+      if (!animate) {
+        // force reflow then restore transition
+        $line[0].offsetHeight;
+        $line.css('transition', '');
+      }
+    }
+
+    // set initial position
+    moveLineTo($currentLi, false);
+
+    // hover behavior
+    $menu.find('> li').off('.ogigLine');
+    $menu.find('> li').on('mouseenter.ogigLine', function () {
+      moveLineTo($(this), true);
+    });
+
+    $menu.on('mouseleave.ogigLine', function () {
+      moveLineTo($currentLi, true);
+    });
+
+    // keep it correct on resize
+    $(window).off('resize.ogigLine').on('resize.ogigLine', function () {
+      initDesktopActiveLine();
+    });
+  }
+
+  // run it
+  initDesktopActiveLine();
+  $(window).on('load', initDesktopActiveLine);
+
 }
