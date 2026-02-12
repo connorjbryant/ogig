@@ -162,25 +162,6 @@ $map_iframe   = $settings_id ? (string) get_field('footer_map_iframe', $settings
       <div class="footer-copyright">
         &copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.
       </div>
-
-      <div class="footer-bottom__social">
-        <?php
-          // reuse footer-social again
-          // $locations = get_nav_menu_locations();
-          // if (isset($locations['footer-social']) && $locations['footer-social'] != 0) {
-          //   $menu_id = $locations['footer-social'];
-          //   $items = wp_get_nav_menu_items($menu_id);
-          //   if ($items) {
-          //     foreach ($items as $item) {
-          //       $aria = !empty($item->attr_title) ? $item->attr_title : wp_strip_all_tags($item->title);
-          //       echo '<a href="' . esc_url($item->url) . '" aria-label="' . esc_attr($aria) . '">';
-          //       echo $item->title;
-          //       echo '</a>';
-          //     }
-          //   }
-          // }
-        ?>
-      </div>
     </div>
   </div>
 
