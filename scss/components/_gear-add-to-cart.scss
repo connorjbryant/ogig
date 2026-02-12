@@ -1,0 +1,114 @@
+/* ==============================
+   OGIG Dual Gear Torque
+   - Big gear turns and drives small gear (opposite direction)
+   - Button clamps slightly
+   ============================== */
+
+.ogig-gear2-wrap{
+  display:inline-flex;
+  align-items:center;
+  position:relative;
+  overflow:visible;
+}
+
+/* Button */
+.ogig-gear2-wrap .single_add_to_cart_button,
+.ogig-gear2-wrap .add_to_cart_button{
+  position:relative;
+  z-index:10;
+  will-change:transform;
+}
+
+/* BIG gear (driver) */
+.ogig-gear2-big{
+  position:absolute;
+  right:-34px;
+  top:-34px;
+  width:48px;
+  height:48px;
+  pointer-events:none;
+  z-index:12;
+
+  transform-origin:50% 50%;
+  transform:rotate(-8deg);
+  transition:transform 220ms cubic-bezier(0.15,1.15,0.25,1);
+  filter:
+    drop-shadow(0 2px 0 rgba(0,0,0,0.35))
+    drop-shadow(0 10px 18px rgba(0,0,0,0.18));
+}
+
+/* SMALL gear (driven) — this replaces your “hex” */
+.ogig-gear2-small{
+  position:absolute;
+  right:-8px;   /* move closer to button corner */
+  top:-8px;
+  width:26px;
+  height:26px;
+  pointer-events:none;
+  z-index:13;   /* above big gear so it reads */
+  transform-origin:50% 50%;
+  transform:rotate(6deg);
+  transition:transform 220ms cubic-bezier(0.15,1.15,0.25,1);
+  filter:
+    drop-shadow(0 2px 0 rgba(0,0,0,0.28))
+    drop-shadow(0 8px 14px rgba(0,0,0,0.14));
+}
+
+/* SVG sizing + default color */
+.ogig-gear2-big svg,
+.ogig-gear2-small svg{
+  width:100%;
+  height:100%;
+  display:block;
+  color:#eaeaea;           /* light metal on dark button */
+}
+
+/* Active torque */
+.ogig-gear2-wrap.is-torque .ogig-gear2-big{
+  transform:rotate(42deg);     /* clockwise */
+}
+
+.ogig-gear2-wrap.is-torque .ogig-gear2-small{
+  transform:rotate(-64deg);    /* counter-clockwise (meshing) */
+}
+
+/* Button clamp */
+.ogig-gear2-wrap.is-torque .single_add_to_cart_button,
+.ogig-gear2-wrap.is-torque .add_to_cart_button{
+  animation:ogig-gear2-clamp 320ms cubic-bezier(0.2,0.9,0.3,1) 1;
+}
+
+@keyframes ogig-gear2-clamp{
+  0%   { transform:translateY(0) scaleY(1); }
+  35%  { transform:translateY(2px) scaleY(0.97); }
+  70%  { transform:translateY(-1px) scaleY(1.01); }
+  100% { transform:translateY(0) scaleY(1); }
+}
+
+/* Mobile */
+@media (max-width:640px){
+  .ogig-gear2-big{
+    right:-30px;
+    top:-30px;
+    width:44px;
+    height:44px;
+  }
+  .ogig-gear2-small{
+    right:-7px;
+    top:-7px;
+    width:24px;
+    height:24px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .ogig-gear2-big,
+  .ogig-gear2-small,
+  .ogig-gear2-wrap .single_add_to_cart_button,
+  .ogig-gear2-wrap .add_to_cart_button{
+    transition:none!important;
+    animation:none!important;
+    transform:none!important;
+  }
+}

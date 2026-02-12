@@ -166,6 +166,43 @@ add_action('init', function () {
   register_block_type_from_metadata( $block_dir_fs );
 });
 
+/* ---------------------------------
+ * Block: ogig/about
+ * - Register editor script handle (deps ensure wp.* exists)
+ * - Register block from block.json ONCE (idempotent)
+ * --------------------------------- */
+add_action('init', function () {
+  $block_dir_fs  = trailingslashit( get_stylesheet_directory() ) . 'blocks/about';
+  $block_json_fs = $block_dir_fs . '/block.json';
+  if ( ! file_exists( $block_json_fs ) ) {
+    if ( defined('WP_DEBUG') && WP_DEBUG ) {
+      error_log('[blocks] block.json not found at ' . $block_json_fs);
+    }
+    return;
+  }
+
+  // Register the editor script handle referenced by block.json
+  // Make sure block.json has: "editorScript": "theme-about-editor"
+  $editor_fs = $block_dir_fs . '/editor.js';
+  if ( file_exists( $editor_fs ) ) {
+    wp_register_script(
+      'theme-about-editor',
+      trailingslashit( get_stylesheet_directory_uri() ) . 'blocks/about/editor.js',
+      [ 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-block-editor', 'wp-editor' ],
+      theme_file_ver( $editor_fs ),
+      true
+    );
+  }
+
+  // Avoid duplicate registration if parent theme/plugin already did it
+  $registry = WP_Block_Type_Registry::get_instance();
+  if ( $registry->is_registered( 'ogig/about' ) ) {
+    return;
+  }
+
+  register_block_type_from_metadata( $block_dir_fs );
+});
+
 // === Gooey Search: register scripts + block ===
 add_action('init', function () {
   // Frontend bundle (bundles framer-motion; React/DOM stay external)
@@ -374,24 +411,52 @@ function ogig_title_above_price() {
   echo '<h1 class="ogig-product-title">' . get_the_title() . '</h1>';
 }
 
-/**
- * Forklift next to Add to Cart button (inline SVG, only forks move)
- */
-add_action( 'woocommerce_before_add_to_cart_button', 'ogig_forklift_btn_wrap_open', 1 );
-function ogig_forklift_btn_wrap_open() {
-  if ( ! is_product() ) {
-    return;
-  }
-
-  echo '<span class="fr-forklift-btn-wrap">';
+/* Custom add to cart animation of a hex nut */
+add_action( 'woocommerce_before_add_to_cart_button', 'ogig_gear2_wrap_open', 1 );
+function ogig_gear2_wrap_open(){
+  if ( ! is_product() ) return;
+  echo '<span class="ogig-gear2-wrap">';
 }
 
-add_action( 'woocommerce_after_add_to_cart_button', 'ogig_forklift_btn_wrap_close_and_svg', 50 );
-function ogig_forklift_btn_wrap_close_and_svg() {
-    if ( ! is_product() ) return;
+add_action( 'woocommerce_after_add_to_cart_button', 'ogig_gear2_wrap_close_and_svg', 50 );
+function ogig_gear2_wrap_close_and_svg(){
+  if ( ! is_product() ) return;
 
-    echo '<span class="fr-forklift-svg">' . file_get_contents( get_stylesheet_directory() . '/build/img/forklift.svg' ) . '</span>';
-    echo '</span>'; // close .fr-forklift-btn-wrap
+  // BIG gear
+  echo '<span class="ogig-gear2-big" aria-hidden="true">
+    <svg viewBox="0 0 100 100" role="presentation" focusable="false">
+      <path fill="currentColor" d="
+        M50 6
+        L60 10 L70 10 L76 18 L86 24 L86 34 L94 42 L90 50 L94 58
+        L86 66 L86 76 L76 82 L70 90 L60 90 L50 94 L40 90 L30 90
+        L24 82 L14 76 L14 66 L6 58 L10 50 L6 42 L14 34 L14 24
+        L24 18 L30 10 L40 10 Z
+        M50 30
+        A20 20 0 1 0 50.01 30 Z
+        M50 41
+        A9 9 0 1 1 49.99 41 Z
+      "/>
+    </svg>
+  </span>';
+
+  // SMALL gear (replaces your hex “nut”)
+  echo '<span class="ogig-gear2-small" aria-hidden="true">
+    <svg viewBox="0 0 100 100" role="presentation" focusable="false">
+      <path fill="currentColor" d="
+        M50 12
+        L58 16 L66 16 L72 22 L80 28 L80 36 L86 42 L82 50 L86 58
+        L80 64 L80 72 L72 78 L66 84 L58 84 L50 88 L42 84 L34 84
+        L28 78 L20 72 L20 64 L14 58 L18 50 L14 42 L20 36 L20 28
+        L28 22 L34 16 L42 16 Z
+        M50 38
+        A12 12 0 1 0 50.01 38 Z
+        M50 45
+        A6 6 0 1 1 49.99 45 Z
+      "/>
+    </svg>
+  </span>';
+
+  echo '</span>'; // close wrap
 }
 
 /* WooCommerce upsells */

@@ -4,6 +4,7 @@
 
 /* Blocks */
 @use "blocks/hero";
+@use "blocks/about";
 
 /* Layout */
 @use "layout/header";
@@ -11,7 +12,7 @@
 
 /* Components */
 @use "components/gooey-search";
-@use "components/forklift-add-to-cart";
+@use "components/gear-add-to-cart";
 
 /* Utilities */
 @use "utilities/helpers";

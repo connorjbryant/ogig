@@ -1,0 +1,89 @@
+{
+  "apiVersion": 2,
+  "name": "ogig/about",
+  "title": "About Section",
+  "category": "layout",
+  "icon": "building",
+  "textdomain": "ogig",
+  "supports": {
+    "align": ["full", "wide"],
+    "html": false
+  },
+
+  "attributes": {
+    "kicker": {
+      "type": "string",
+      "default": "About Us"
+    },
+    "heading": {
+      "type": "string",
+      "default": "Precision Manufacturing Built to Last"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Production-Ready Components • Custom CNC Machining"
+    },
+    "body": {
+      "type": "string",
+      "default": "For decades, we’ve delivered precision manufacturing with an uncompromising focus on quality, repeatability, and performance. From standard production runs to custom CNC work, we build components that meet demanding specs and hold up in the field."
+    },
+
+    "bgStamp": {
+      "type": "string",
+      "default": "EST. 19XX"
+    },
+
+    "primaryButtonLabel": {
+      "type": "string",
+      "default": "Explore Products"
+    },
+    "primaryButtonUrl": {
+      "type": "string",
+      "default": "#"
+    },
+
+    "secondaryButtonLabel": {
+      "type": "string",
+      "default": "Talk with an Engineer"
+    },
+    "secondaryButtonUrl": {
+      "type": "string",
+      "default": "#"
+    },
+
+    "highlight1Value": {
+      "type": "string",
+      "default": "ISO/ABMA"
+    },
+    "highlight1Label": {
+      "type": "string",
+      "default": "Built to strict standards"
+    },
+
+    "highlight2Value": {
+      "type": "string",
+      "default": "CNC"
+    },
+    "highlight2Label": {
+      "type": "string",
+      "default": "Modern equipment & tooling"
+    },
+
+    "highlight3Value": {
+      "type": "string",
+      "default": "USA"
+    },
+    "highlight3Label": {
+      "type": "string",
+      "default": "Quality-first manufacturing"
+    },
+
+    "imageId": {
+      "type": "number",
+      "default": 0
+    }
+  },
+
+  "editorScript": "theme-about-editor",
+  "render": "file:./render.php"
+}

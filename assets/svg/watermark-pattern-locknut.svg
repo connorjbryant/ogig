@@ -1,0 +1,23 @@
+<!-- watermark-pattern-locknut.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-hidden="true" focusable="false">
+  <!-- Tileable pattern. Use as background-image. -->
+  <defs>
+    <pattern id="locknutPattern" width="80" height="80" patternUnits="userSpaceOnUse">
+      <!-- locknut-ish: hex + inner bore -->
+      <g fill="none" stroke="currentColor" stroke-width="3" showsstroke="1" opacity="1">
+        <path d="M40 10 L62 23 L62 57 L40 70 L18 57 L18 23 Z"/>
+        <circle cx="40" cy="40" r="12"/>
+        <circle cx="40" cy="40" r="7" opacity="0.75"/>
+        <!-- tiny ticks -->
+        <path d="M40 16 L40 22" opacity="0.7"/>
+        <path d="M40 58 L40 64" opacity="0.7"/>
+        <path d="M16 40 L22 40" opacity="0.7"/>
+        <path d="M58 40 L64 40" opacity="0.7"/>
+      </g>
+    </pattern>
+  </defs>
+
+  <!-- Fill the tile with the pattern -->
+  <rect width="240" height="240" fill="currentColor" opacity="0"/>
+  <rect width="240" height="240" fill="url(#locknutPattern)"/>
+</svg>

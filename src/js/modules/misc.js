@@ -1,5 +1,5 @@
 export function initMisc($) {
-  // Smooth scroll for anchor links (keep as-is)
+  // Smooth scroll (keep as-is)
   $('a[href^="#"]').on('click', function (e) {
     const target = $(this.getAttribute('href'));
     if (target.length) {
@@ -8,33 +8,35 @@ export function initMisc($) {
     }
   });
 
-  // === FORKLIFT LIFT ON SCROLL (no hover/click interaction) ===
-  const $wrap = $('.fr-forklift-btn-wrap');
-  if (!$wrap.length) return;
-
-  // Respect users who prefer reduced motion
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) return;
+  const $wraps = $('.ogig-gear2-wrap');
+  if (!$wraps.length) return;
 
   let isAnimating = false;
   let lastTriggerScroll = window.scrollY;
 
-  $(window).on('scroll', function () {
-    const currentY = window.scrollY;
+  function getPrimaryWrap(){
+    const $visible = $wraps.filter(function(){
+      const r = this.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    });
+    return $visible.first().length ? $visible.first() : $wraps.first();
+  }
 
-    // Only trigger if user has scrolled at least 60px since last animation
-    if (Math.abs(currentY - lastTriggerScroll) < 60) return;
+  $(window).on('scroll', function(){
+    const y = window.scrollY;
+    if (Math.abs(y - lastTriggerScroll) < 90) return;
     if (isAnimating) return;
 
-    lastTriggerScroll = currentY;
+    lastTriggerScroll = y;
     isAnimating = true;
 
-    $wrap.addClass('is-lifted');
+    const $wrap = getPrimaryWrap();
+    $wrap.addClass('is-torque');
 
-    // Match timing with your CSS transition (~0.35s up + a bit of hang)
     setTimeout(() => {
-      $wrap.removeClass('is-lifted');
+      $wrap.removeClass('is-torque');
       isAnimating = false;
-    }, 900);
+    }, 420);
   });
+
 }
