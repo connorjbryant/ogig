@@ -1,9 +1,9 @@
 <?php
 /**
  * Server-rendered About block
- * - Full-bleed background (grid + vignette) independent of alignfull support
+ * - Full-bleed background independent of alignfull support
  * - Inner content follows global width via alignwide
- * - Watermark: TEXT (ex: "IG" or "OG\nIG")
+ * - Watermark: TEXT (optional)
  * - Optional heading level (defaults to h2)
  */
 
@@ -17,6 +17,9 @@ $body     = isset( $attributes['body'] ) ? (string) $attributes['body'] : '';
 
 // Stamp text (watermark text)
 $bg_stamp = isset( $attributes['bgStamp'] ) ? trim( (string) $attributes['bgStamp'] ) : '';
+
+// Optional: allow disabling text watermark if you want only the contour watermark
+$disable_text_wm = ! empty( $attributes['disableWatermarkText'] );
 
 // Optional heading level (1-6). If not provided, use h2.
 $level = isset( $attributes['headingLevel'] ) ? (int) $attributes['headingLevel'] : 2;
@@ -66,7 +69,7 @@ if ( $kicker === '' )  $kicker  = __( 'About Us', 'ogig' );
 // Sanitize body (allow rich text)
 $body_safe = wp_kses_post( $body );
 
-// Watermark text (default to IG to match your screenshot vibe)
+// Watermark text (default to IG)
 $watermark_text = $bg_stamp !== '' ? $bg_stamp : 'IG';
 
 // Allow ONLY <br>, and support newlines OG\nIG
@@ -80,9 +83,16 @@ $title_id = 'aboutblock-title-' . wp_unique_id();
 <section class="aboutblock aboutblock--light alignfull" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
   <div class="aboutblock__inner alignwide" data-aos="fade-up">
 
-    <div class="aboutblock__watermark" aria-hidden="true">
-      <?php echo $watermark_safe; ?>
-    </div>
+    <?php
+    $wm_icon_class = isset($attributes['watermarkIconClass']) ? trim((string)$attributes['watermarkIconClass']) : '';
+    $use_icon = $wm_icon_class !== '';
+    ?>
+
+    <?php if ( ! $disable_text_wm ) : ?>
+      <div class="aboutblock__watermark" aria-hidden="true">
+        <i class="fa-solid fa-gear"></i>
+      </div>
+    <?php endif; ?>
 
     <div class="aboutblock__content">
       <?php if ( $kicker ) : ?>
