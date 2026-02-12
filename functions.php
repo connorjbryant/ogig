@@ -564,3 +564,109 @@ add_action('acf/init', function () {
     ],
   ]);
 });
+
+/* =========================================================
+ * OGIG Testimonials CPT + Shortcode + Assets
+ * ========================================================= */
+
+add_action('init', function () {
+
+  // Register CPT
+  $labels = [
+    'name'               => 'Testimonials',
+    'singular_name'      => 'Testimonial',
+    'add_new'            => 'Add New',
+    'add_new_item'       => 'Add New Testimonial',
+    'edit_item'          => 'Edit Testimonial',
+    'new_item'           => 'New Testimonial',
+    'view_item'          => 'View Testimonial',
+    'search_items'       => 'Search Testimonials',
+    'not_found'          => 'No testimonials found',
+    'not_found_in_trash' => 'No testimonials found in trash',
+    'menu_name'          => 'Testimonials',
+  ];
+
+  register_post_type('ogig_testimonial', [
+    'labels'             => $labels,
+    'public'             => true,
+    'has_archive'        => false,
+    'show_in_rest'       => true,
+    'menu_icon'          => 'dashicons-format-quote',
+    'supports'           => ['title', 'thumbnail'],
+    'rewrite'            => ['slug' => 'testimonials'],
+  ]);
+});
+
+/**
+ * Helpers (guarded to avoid redeclare fatals)
+ */
+if (!function_exists('ogig_safe_rating')) {
+  function ogig_safe_rating($n) {
+    $n = (int) $n;
+    if ($n < 0) $n = 0;
+    if ($n > 5) $n = 5;
+    return $n;
+  }
+}
+
+if (!function_exists('ogig_render_stars')) {
+  function ogig_render_stars($rating) {
+    $rating = ogig_safe_rating($rating);
+    if ($rating <= 0) return '';
+    $out = '<div class="ogig-tm__stars" aria-label="' . esc_attr($rating) . ' out of 5 stars">';
+    for ($i = 1; $i <= 5; $i++) {
+      $out .= '<span class="ogig-tm__star' . ($i <= $rating ? ' is-on' : '') . '">★</span>';
+    }
+    $out .= '</div>';
+    return $out;
+  }
+}
+
+/**
+ * Shortcode: [ogig_testimonials count="3" featured="0" order="DESC" autoplay="1" interval="4500"]
+ */
+add_shortcode('ogig_testimonials', function ($atts) {
+  $atts = shortcode_atts([
+    'count'    => '',        // number to show
+    'featured' => 0,        // 1 = only featured testimonials (ACF field)
+    'order'    => 'DESC',   // newest first on desktop
+    'autoplay' => 1,        // mobile autoplay
+    'interval' => 4500,     // ms
+    'anchor'   => '',       // optional section id
+  ], $atts, 'ogig_testimonials');
+
+  // Pass shortcode settings to template via query vars (simple + safe)
+  $raw_count = isset($atts['count']) ? trim((string) $atts['count']) : '';
+  $count     = ($raw_count === '') ? 0 : (int) $raw_count; // 0 = all
+
+  set_query_var('ogig_tm_sc_atts', [
+    'count'    => ($count <= 0 ? 0 : $count), // keep 0 as "all"
+    'featured' => ((int) $atts['featured'] === 1),
+    'order'    => (strtoupper($atts['order']) === 'ASC' ? 'ASC' : 'DESC'),
+    'autoplay' => ((int) $atts['autoplay'] === 1),
+    'interval' => max(2000, (int) $atts['interval']),
+    'anchor'   => sanitize_title($atts['anchor']),
+  ]);
+
+  ob_start();
+  get_template_part('template-parts/blocks/testimonials');
+  return ob_get_clean();
+});
+
+/**
+ * Enqueue Testimonials JS (frontend only)
+ */
+add_action('wp_enqueue_scripts', function () {
+  $rel = '/assets/js/ogig-testimonials.js';
+  $fs  = get_stylesheet_directory() . $rel;
+
+  if (file_exists($fs)) {
+    wp_enqueue_script(
+      'ogig-testimonials',
+      get_stylesheet_directory_uri() . $rel,
+      [],
+      filemtime($fs),
+      true
+    );
+  }
+}, 30);

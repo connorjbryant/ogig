@@ -152,7 +152,7 @@ body.menu-open {
 /* Main grows to fill leftover height */
 .site-main {
   flex: 1 0 auto;
-  padding-bottom: var(--footer-h);
+  padding-bottom: 0;
 }
 
 /* WordPress alignment helpers (works w/ classic + block themes) */

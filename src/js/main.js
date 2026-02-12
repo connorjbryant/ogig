@@ -4,6 +4,7 @@ import { initCartBubble } from './modules/cart-bubble';
 import { initAOS } from './modules/aos-init';
 import { initMisc } from './modules/misc';
 import { initFooterThree } from './modules/footer-three';
+import { initTestimonialsSlider } from './modules/testimonials-slider';
 
 // Safe wrapper to call from DOM ready + window.load (Ensure three.js loads)
 function safeInitFooterThree($) {
@@ -18,6 +19,7 @@ jQuery(function ($) {
   initHeader($);
   initCartBubble($);
   initAOS($);
+  initTestimonialsSlider();
   initMisc($);
 
   // Run footer init once DOM is ready
