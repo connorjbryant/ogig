@@ -93,6 +93,21 @@ add_action('wp_enqueue_scripts', function () {
     }
 });
 
+// Flaticon (local icon font)
+add_action('wp_enqueue_scripts', function () {
+  $rel = '/assets/flaticon/flaticon.css';
+  $fs  = get_stylesheet_directory() . $rel;
+
+  if (file_exists($fs)) {
+    wp_enqueue_style(
+      'ogig-flaticon',
+      get_stylesheet_directory_uri() . $rel,
+      [],
+      filemtime($fs)
+    );
+  }
+}, 20);
+
 /* ---------------------------------
  * Theme supports + menus + editor styles
  * --------------------------------- */
@@ -523,4 +538,29 @@ add_shortcode('ogig_product_cards_hero', function () {
   ob_start();
   get_template_part('template-parts/blocks/product-cards-hero');
   return ob_get_clean();
+});
+
+add_shortcode('ogig_feature_cards', function () {
+  ob_start();
+  get_template_part('template-parts/blocks/feature-cards');
+  return ob_get_clean();
+});
+
+add_action('acf/init', function () {
+  if (!function_exists('acf_register_block_type')) return;
+
+  acf_register_block_type([
+    'name'            => 'ogig-feature-cards',
+    'title'           => 'OGIG – Feature Cards (3-up)',
+    'description'     => 'Three feature cards with optional background image and highlighted center card.',
+    'render_template' => get_template_directory() . '/template-parts/blocks/feature-cards.php',
+    'category'        => 'formatting',
+    'icon'            => 'grid-view',
+    'keywords'        => ['features', 'cards', 'ogig'],
+    'mode'            => 'preview',
+    'supports'        => [
+      'align' => ['wide', 'full'],
+      'jsx'   => true,
+    ],
+  ]);
 });

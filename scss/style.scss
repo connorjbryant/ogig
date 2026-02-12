@@ -18,6 +18,17 @@
 
 /* ACF Modules */
 @use "acf/product-cards";
+@use "acf/feature-cards";
+
+/* =========================================
+   AOS No-JS fallback
+   If JS is disabled, don't hide/transform AOS elements
+   ========================================= */
+html.no-js [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 
 /* WooCommerce */
 /* Hide the sad face icon completely (including spacing) on cart page */

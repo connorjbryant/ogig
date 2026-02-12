@@ -1,0 +1,125 @@
+/* =========================================
+   OGIG Feature Cards (3-up) – Spacing + Type upgrade
+   (drop-in replacement for card/icon/title/subtitle/text parts)
+   ========================================= */
+/* Desktop: 3-up */
+.ogig-fc__grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+  align-items: stretch;
+}
+
+.ogig-fc{
+  padding: clamp(4rem, 7vw, 7rem) 0;
+}
+
+.ogig-fc__card{
+  background: linear-gradient(
+    180deg,
+    rgba(25,25,25,.92) 0%,
+    rgba(18,18,18,.92) 100%
+  );
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 0;
+  padding: clamp(1.75rem, 2.2vw, 2.4rem);
+  text-align:center;
+  box-shadow: 0 14px 40px rgba(0,0,0,.35);
+
+  /* NEW: make spacing consistent */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Controls how evenly things “breathe” */
+  gap: 12px;
+}
+
+.ogig-fc__card.is-featured{
+  transform: translateY(-18px);
+  border-color: rgba(255,255,255,.10);
+  box-shadow: 0 18px 60px rgba(0,0,0,.45);
+}
+
+/* Icon */
+.ogig-fc__icon{
+  font-size: 42px;
+  line-height: 1;
+  margin-bottom: 2px; /* let gap handle most spacing */
+  color: var(--brand-color);
+}
+
+/* Title */
+.ogig-fc__card-title{
+  margin: 0;
+  color: #fff;
+  font-weight: 800;
+
+  /* slightly larger + better line wrap */
+  font-size: clamp(1.35rem, 1.55vw, 1.65rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* Subtitle: bigger than body, tighter to title */
+.ogig-fc__card-subtitle{
+  margin: 0;
+  color: rgba(255,255,255,.78);
+  font-weight: 650;
+
+  /* NEW: subtitle is “between” title and body */
+  font-size: clamp(1.02rem, 1.05vw, 1.12rem);
+  line-height: 1.35;
+
+  /* Pull it slightly closer to title */
+  margin-top: -4px;
+}
+
+/* Body text: slightly smaller + easier read */
+.ogig-fc__card-text{
+  margin: 0;
+  margin-top: 2px;
+  color: rgba(255,255,255,.72);
+  line-height: 1.75;
+  font-size: clamp(.95rem, 1vw, 1.02rem);
+
+  /* keeps paragraphs visually balanced */
+  max-width: 34ch;
+  min-height: 5.5em;
+}
+
+/* Feature Cards icon sizing for Flaticon (keep) */
+.ogig-fc__icon span::before{
+  font-size: 44px;
+  line-height: 1;
+  display: inline-block;
+  color: var(--brand-color);
+}
+
+/* Make flaticon glyphs show reliably (keep) */
+.ogig-fc__icon > i,
+.ogig-fc__icon > span {
+  display: inline-block;
+  line-height: 1;
+  font-size: inherit;
+  width: 1em;
+  height: 1em;
+}
+.ogig-fc__icon > i::before,
+.ogig-fc__icon > span::before {
+  display: inline-block;
+  font-size: 1em;
+  transform: scale(1.25);
+  line-height: 1;
+}
+
+.ogig-fc__card.is-featured{
+  position: relative;
+  z-index: 2;
+}
+
+/* Tablet / Mobile */
+@media (max-width: 1024px){
+  .ogig-fc__grid{ grid-template-columns: 1fr; }
+  .ogig-fc__card.is-featured{ transform: none; }
+}
