@@ -138,42 +138,6 @@ add_action('after_setup_theme', function () {
 });
 
 /* ---------------------------------
- * Block: ogig/hero
- * - Register editor script handle (deps ensure wp.* exists)
- * - Register block from block.json ONCE (idempotent)
- * --------------------------------- */
-add_action('init', function () {
-  $block_dir_fs  = trailingslashit( get_stylesheet_directory() ) . 'blocks/hero';
-  $block_json_fs = $block_dir_fs . '/block.json';
-  if ( ! file_exists( $block_json_fs ) ) {
-    if ( defined('WP_DEBUG') && WP_DEBUG ) {
-      error_log('[blocks] block.json not found at ' . $block_json_fs);
-    }
-    return;
-  }
-
-  // Register the editor script handle referenced by block.json ("editorScript": "theme-hero-editor")
-  $editor_fs = $block_dir_fs . '/editor.js';
-  if ( file_exists( $editor_fs ) ) {
-    wp_register_script(
-      'theme-hero-editor',
-      trailingslashit( get_stylesheet_directory_uri() ) . 'blocks/hero/editor.js',
-      [ 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-block-editor', 'wp-editor' ],
-      theme_file_ver( $editor_fs ),
-      true
-    );
-  }
-
-  // Avoid duplicate registration if parent theme/plugin already did it
-  $registry = WP_Block_Type_Registry::get_instance();
-  if ( $registry->is_registered( 'ogig/hero' ) ) {
-    return;
-  }
-
-  register_block_type_from_metadata( $block_dir_fs );
-});
-
-/* ---------------------------------
  * Block: ogig/about
  * - Register editor script handle (deps ensure wp.* exists)
  * - Register block from block.json ONCE (idempotent)
@@ -743,9 +707,32 @@ add_action('wp_enqueue_scripts', function () {
   }
 }, 30);
 
+// Removing redundant CSS
 add_action( 'wp_enqueue_scripts', function() {
 
   wp_dequeue_style( 'wc-blocks-style-all-products' );
   wp_deregister_style( 'wc-blocks-style-all-products' );
 
 }, 100 );
+
+// Force sitewide template for WooCommerce
+add_filter('template_include', function ($template) {
+  if (!function_exists('is_woocommerce')) return $template;
+
+  // Map Woo "special" pages to your custom page template file
+  $woo_page_ids = array_filter([
+    'shop'      => (int) get_option('woocommerce_shop_page_id'),
+    'cart'      => (int) get_option('woocommerce_cart_page_id'),
+    'checkout'  => (int) get_option('woocommerce_checkout_page_id'),
+    'account'   => (int) get_option('woocommerce_myaccount_page_id'),
+    // add more if you have them, e.g. terms pages, etc.
+  ]);
+
+  // If we are on one of those pages, force a template
+  if (is_page(array_values($woo_page_ids))) {
+    $custom = locate_template('page-sitewide-default.php'); // create this file in your theme
+    if ($custom) return $custom;
+  }
+
+  return $template;
+}, 99);
