@@ -1,129 +1,155 @@
-/* ===== OGIG Product Cards Hero ===== */
+@use "../base/variables" as *;
+
+/* ======================================================
+   OGIG Product Cards Hero (PCH)
+   - Uses GLOBAL semantic tokens from global.scss
+   - No local font-size presets
+   - Fully controlled by theme.json
+====================================================== */
+
 .ogig-pch {
   position: relative;
   overflow: hidden;
   padding: clamp(48px, 6vw, 90px) 0;
   color: #fff;
-}
 
-.ogig-pch__bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  filter: saturate(1.05);
-  transform: scale(1.02);
-  z-index: 0;
-}
-
-.ogig-pch__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: 1;
-}
-
-.ogig-pch__inner {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-}
-
-.ogig-pch__title {
-  margin: 0 0 2.5rem 0;
-  font-weight: 800;
-  font-size: clamp(38px, 4.5vw, 64px);
-  line-height: 1.05;
-  text-align: left;
-}
-
-/* Grid */
-.ogig-pch__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
-  align-items: stretch; /* IMPORTANT: equal-height columns */
-}
-
-/* Card as column */
-.ogig-pch__card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-/* Title stays at top */
-.ogig-pch__card-title {
-  margin: 0 0 14px 0;
-  text-align: left;
-  font-size: var(--wp--preset--font-size--level-4);
-  line-height: 1.25;
-}
-
-/* Media is a fixed “slot” so all cards line up */
-.ogig-pch__card-media {
-  //background: rgba(255,255,255,0.96);
-  //padding: 20px;
-  background-color: white;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.25);
-
-  /* Key alignment rules */
-  height: 260px;               /* tweak this */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-/* Image always fits inside the slot */
-.ogig-pch__card-media img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  display: block;
-}
-
-/* Button always at bottom */
-/* Button always at bottom (styled) */
-.ogig-pch__btn {
-  margin-top: auto;            /* pushes button to bottom */
-  height: 56px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #e53935;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 700;
-  border-radius: 3px;
-  padding: 0 18px;
-  border: 0;
-  cursor: pointer;
-
-  transition: 0.2s ease;
-}
-
-.ogig-pch__btn:hover {
-  filter: brightness(0.98);
-}
-
-.ogig-pch__btn:visited {
-  color: #fff;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .ogig-pch__grid {
-    grid-template-columns: 1fr;
-    gap: 22px;
-    max-width: 520px;
-    margin-inline: auto;
+  /* Background image */
+  &__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: saturate(1.05);
+    transform: scale(1.02);
+    z-index: 0;
   }
 
-  .ogig-pch__title {
+  /* Overlay */
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 1;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 2;
     text-align: center;
+  }
+
+  /* =========================================
+     HERO TITLE
+     Uses global hero token
+  ========================================= */
+  &__title {
+    margin: 0 0 2.5rem 0;
+    font-weight: 800;
+    font-size: var(--type-hero);
+    line-height: 1.05;
+    text-align: left;
+  }
+
+  /* =========================================
+     GRID
+  ========================================= */
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  /* =========================================
+     CARD
+  ========================================= */
+  &__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* Card Title (semantic h2 recommended) */
+  &__card-title {
+    margin: 0 0 14px 0;
+    text-align: left;
+
+    /* Uses global subhead token */
+    font-size: var(--type-subhead);
+    line-height: 1.25;
+    font-weight: 750;
+  }
+
+  /* =========================================
+     MEDIA SLOT
+  ========================================= */
+  &__card-media {
+    background-color: #fff;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 1rem;
+  }
+
+  &__card-media img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+  }
+
+  /* =========================================
+     BUTTON
+  ========================================= */
+  &__btn {
+    margin-top: auto;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e53935;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 3px;
+    padding: 0 18px;
+    border: 0;
+    cursor: pointer;
+
+    font-size: var(--type-body);
+
+    transition: 0.2s ease;
+  }
+
+  &__btn:hover {
+    filter: brightness(0.98);
+  }
+
+  &__btn:visited {
+    color: #fff;
+  }
+
+  /* =========================================
+     RESPONSIVE
+  ========================================= */
+  @media (max-width: 1024px) {
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 22px;
+      max-width: 520px;
+      margin-inline: auto;
+    }
+
+    &__title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
   }
 }

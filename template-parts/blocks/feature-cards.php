@@ -80,7 +80,7 @@ if (!empty($bg_image) && is_array($bg_image) && !empty($bg_image['url'])) {
             <?php endif; ?>
 
             <?php if (!empty($card['subtitle'])): ?>
-              <div class="ogig-fc__card-subtitle"><?php echo esc_html($card['subtitle']); ?></div>
+              <h4 class="ogig-fc__card-subtitle"><?php echo esc_html($card['subtitle']); ?></h4>
             <?php endif; ?>
 
             <?php if (!empty($card['text'])): ?>
