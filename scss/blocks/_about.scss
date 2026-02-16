@@ -314,7 +314,8 @@
   &__highlight-label {
     font-size: var(--ab-f1);
     line-height: 1.4;
-    color: rgba(0, 0, 0, 0.65);
+    color: black;
+    margin-top: 0.5rem;
   }
 
   /* Desktop: full-width trust banner */
