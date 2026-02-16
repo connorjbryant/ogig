@@ -719,20 +719,10 @@ add_action( 'wp_enqueue_scripts', function() {
 add_filter('template_include', function ($template) {
   if (!function_exists('is_woocommerce')) return $template;
 
-  // Map Woo "special" pages to your custom page template file
-  $woo_page_ids = array_filter([
-    'shop'      => (int) get_option('woocommerce_shop_page_id'),
-    'cart'      => (int) get_option('woocommerce_cart_page_id'),
-    'checkout'  => (int) get_option('woocommerce_checkout_page_id'),
-    'account'   => (int) get_option('woocommerce_myaccount_page_id'),
-    // add more if you have them, e.g. terms pages, etc.
-  ]);
-
-  // If we are on one of those pages, force a template
-  if (is_page(array_values($woo_page_ids))) {
-    $custom = locate_template('page-sitewide-default.php'); // create this file in your theme
+  if (is_woocommerce() || is_cart() || is_checkout() || is_account_page()) {
+    $custom = locate_template('woo-wrapper.php');
     if ($custom) return $custom;
   }
 
   return $template;
-}, 99);
+}, 999);

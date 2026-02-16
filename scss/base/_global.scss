@@ -18,6 +18,9 @@
   --ogig-button-text: #ffffff;
   --ogig-button-outline: var(--brand-color);
 
+  /* fallback gutter if theme.json variables aren't present */
+  --ogig-gutter: clamp(16px, 4vw, 32px);
+
   /* WP preset aliases (theme.json) */
   --f0: var(--wp--preset--font-size--level-0);
   --f1: var(--wp--preset--font-size--level-1);
@@ -262,9 +265,13 @@ a:where(:not(.wp-element-button)) {
 
 .alignwide,
 .site-container {
-  width: min(calc(var(--container-max) + 200px), 100% - 2 * var(--gutter)) !important;
+  width: min(
+    var(--wp--style--global--content-size, 1200px),
+    calc(100% - (2 * var(--ogig-gutter)))
+  ) !important;
+
   margin-inline: auto;
-  padding-inline: var(--gutter);
+  padding-inline: var(--ogig-gutter);
 }
 
 .site-container-custom {
