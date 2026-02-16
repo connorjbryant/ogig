@@ -9,7 +9,6 @@
     "align": ["full", "wide"],
     "html": false
   },
-
   "attributes": {
     "kicker": {
       "type": "string",
@@ -19,6 +18,10 @@
       "type": "string",
       "default": "Precision Manufacturing Built to Last"
     },
+    "headingLevel": {
+      "type": "number",
+      "default": 1
+    },
     "subtitle": {
       "type": "string",
       "default": "Production-Ready Components • Custom CNC Machining"
@@ -27,12 +30,10 @@
       "type": "string",
       "default": "For decades, we’ve delivered precision manufacturing with an uncompromising focus on quality, repeatability, and performance. From standard production runs to custom CNC work, we build components that meet demanding specs and hold up in the field."
     },
-
     "bgStamp": {
       "type": "string",
       "default": "EST. 19XX"
     },
-
     "primaryButtonLabel": {
       "type": "string",
       "default": "Explore Products"
@@ -41,7 +42,6 @@
       "type": "string",
       "default": "#"
     },
-
     "secondaryButtonLabel": {
       "type": "string",
       "default": "Talk with an Engineer"
@@ -50,7 +50,14 @@
       "type": "string",
       "default": "#"
     },
-
+    "highlightsHeading": {
+      "type": "string",
+      "default": "Why Choose OGIG"
+    },
+    "highlightsIntro": {
+      "type": "string",
+      "default": ""
+    },
     "highlight1Value": {
       "type": "string",
       "default": "ISO/ABMA"
@@ -59,7 +66,6 @@
       "type": "string",
       "default": "Built to strict standards"
     },
-
     "highlight2Value": {
       "type": "string",
       "default": "CNC"
@@ -68,7 +74,6 @@
       "type": "string",
       "default": "Modern equipment & tooling"
     },
-
     "highlight3Value": {
       "type": "string",
       "default": "USA"
@@ -77,7 +82,6 @@
       "type": "string",
       "default": "Quality-first manufacturing"
     },
-
     "imageId": {
       "type": "number",
       "default": 0
@@ -90,9 +94,7 @@
       "type": "number",
       "default": 0.08
     }
-
   },
-
   "editorScript": "theme-about-editor",
   "render": "file:./render.php"
 }

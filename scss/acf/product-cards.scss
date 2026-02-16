@@ -56,6 +56,8 @@
 .ogig-pch__card-title {
   margin: 0 0 14px 0;
   text-align: left;
+  font-size: var(--wp--preset--font-size--level-4);
+  line-height: 1.25;
 }
 
 /* Media is a fixed “slot” so all cards line up */
