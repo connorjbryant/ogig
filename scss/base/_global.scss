@@ -1,4 +1,6 @@
 :root {
+  --ogig-body-font: "Figtree", Arial, sans-serif;
+  --ogig-heading-font: "Libre Baskerville", serif;
   --ogig-button-bg: #32373c;      /* base */
   --ogig-button-bg-hover: #444b52; /* solid hover, still dark enough */
   --ogig-button-text: #ffffff;
@@ -20,8 +22,21 @@ html, body {
   box-sizing: inherit;
 }
 
-body, h1,h2,h3,h4,h5,h6, p, a, li, input, button, textarea, select {
-  font-family: "Figtree", Arial, sans-serif;
+body, p, li, input, button, textarea, select {
+  font-family: var(--ogig-body-font);
+}
+
+h1, h2, h3, h4, h5, h6,
+.main-navigation a,
+.site-header .menu a,
+.woocommerce div.product .product_title,
+.ogig-product-title {
+  font-family: var(--ogig-heading-font);
+  letter-spacing: 0.02em;
+}
+
+.ogig-product-title {
+  font-size: 5rem;
 }
 
 h3 {

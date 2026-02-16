@@ -35,6 +35,20 @@
             const highlight3Value      = attributes.highlight3Value || '';
             const highlight3Label      = attributes.highlight3Label || '';
             const imageId              = attributes.imageId || 0;
+            const watermarkImageId = attributes.watermarkImageId || 0;
+            const watermarkImageOpacity = typeof attributes.watermarkImageOpacity === 'number'
+            ? attributes.watermarkImageOpacity
+            : 0.08;
+
+            function onSelectWatermarkImage(media) {
+            if (!media || !media.id) {
+                setAttributes({ watermarkImageId: 0 });
+                return;
+            }
+            setAttributes({ watermarkImageId: media.id });
+            }
+
+
 
             function onSelectImage( media ) {
                 if ( ! media || ! media.id ) {
@@ -197,7 +211,49 @@
                             },
                         } )
                     )
+                ),
+
+                createElement(
+                PanelBody,
+                { title: __( 'Watermark', 'ogig' ), initialOpen: false },
+
+                createElement(
+                    MediaUploadCheck,
+                    null,
+                    createElement(MediaUpload, {
+                    onSelect: onSelectWatermarkImage,
+                    allowedTypes: ['image'],
+                    value: watermarkImageId,
+                    render: function(obj){
+                        return createElement(
+                        Fragment,
+                        null,
+                        createElement(Button, { variant: 'secondary', onClick: obj.open },
+                            watermarkImageId ? __( 'Replace watermark image', 'ogig' ) : __( 'Select watermark image', 'ogig' )
+                        ),
+                        watermarkImageId && createElement(Button, {
+                            variant: 'link',
+                            isDestructive: true,
+                            onClick: function(){ setAttributes({ watermarkImageId: 0 }); }
+                        }, __( 'Remove', 'ogig' ))
+                        );
+                    }
+                    })
+                ),
+
+                createElement(TextControl, {
+                    label: __( 'Watermark opacity (0–1)', 'ogig' ),
+                    value: String(watermarkImageOpacity),
+                    onChange: function(v){
+                    var n = parseFloat(v);
+                    if (isNaN(n)) n = 0.08;
+                    if (n < 0) n = 0;
+                    if (n > 1) n = 1;
+                    setAttributes({ watermarkImageOpacity: n });
+                    }
+                })
                 )
+
             );
 
             // ===== Block preview in editor =====

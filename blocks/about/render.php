@@ -62,6 +62,25 @@ if ( $image_id ) {
   );
 }
 
+$watermark_image_id = isset( $attributes['watermarkImageId'] ) ? absint( $attributes['watermarkImageId'] ) : 0;
+$watermark_opacity  = isset( $attributes['watermarkImageOpacity'] ) ? (float) $attributes['watermarkImageOpacity'] : 0.08;
+if ( $watermark_opacity < 0 ) $watermark_opacity = 0;
+if ( $watermark_opacity > 1 ) $watermark_opacity = 1;
+
+$watermark_image_html = '';
+if ( $watermark_image_id ) {
+  $watermark_image_html = wp_get_attachment_image(
+    $watermark_image_id,
+    'large',
+    false,
+    [
+      'class'    => 'aboutblock__watermark-img',
+      'loading'  => 'lazy',
+      'decoding' => 'async',
+    ]
+  );
+}
+
 // Fallbacks
 if ( $heading === '' ) $heading = __( 'Precision Manufacturing Built to Last', 'ogig' );
 if ( $kicker === '' )  $kicker  = __( 'About Us', 'ogig' );
@@ -89,10 +108,15 @@ $title_id = 'aboutblock-title-' . wp_unique_id();
     ?>
 
     <?php if ( ! $disable_text_wm ) : ?>
-      <div class="aboutblock__watermark" aria-hidden="true">
-        <i class="fa-solid fa-gear"></i>
+      <div class="aboutblock__watermark" aria-hidden="true" style="opacity: <?php echo esc_attr( $watermark_opacity ); ?>;">
+        <?php if ( $watermark_image_html ) : ?>
+          <?php echo $watermark_image_html; ?>
+        <?php else : ?>
+          <i class="fa-solid fa-gear"></i>
+        <?php endif; ?>
       </div>
     <?php endif; ?>
+
 
     <div class="aboutblock__content">
       <?php if ( $kicker ) : ?>

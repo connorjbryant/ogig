@@ -45,6 +45,13 @@ add_action('wp_enqueue_scripts', function () {
       [],
       null
     );
+    wp_enqueue_style(
+      'ogig-heading-font',
+      'https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap',
+      [],
+      null
+    );
+
 
     // CSS: prefer build/css/style.min.css → fallback to root style.css
     $build_css_fs = get_stylesheet_directory() . '/build/css/style.min.css';
@@ -735,3 +742,10 @@ add_action('wp_enqueue_scripts', function () {
     );
   }
 }, 30);
+
+add_action( 'wp_enqueue_scripts', function() {
+
+  wp_dequeue_style( 'wc-blocks-style-all-products' );
+  wp_deregister_style( 'wc-blocks-style-all-products' );
+
+}, 100 );

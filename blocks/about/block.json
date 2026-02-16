@@ -81,7 +81,16 @@
     "imageId": {
       "type": "number",
       "default": 0
+    },
+    "watermarkImageId": {
+      "type": "number",
+      "default": 0
+    },
+    "watermarkImageOpacity": {
+      "type": "number",
+      "default": 0.08
     }
+
   },
 
   "editorScript": "theme-about-editor",
