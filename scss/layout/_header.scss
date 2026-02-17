@@ -707,6 +707,32 @@ nav.main-navigation.mobile-menu {
   }
 }
 
+@media (max-width: 1024px) and (orientation: landscape) and (max-height: 520px) {
+  /* shrink header footprint */
+  .header-main { padding: 8px 0; }
+
+  .site-branding .custom-logo-link img { max-height: 56px; }
+
+  /* tighten menu items so submenus fit better */
+  nav.main-navigation.mobile-menu {
+    top: var(--header-h, 96px);
+    max-height: calc(100dvh - var(--header-h, 96px));
+  }
+
+  nav.main-navigation.mobile-menu ul.nav-menu > li > a {
+    padding: 12px 0;
+    font-size: 1.05rem;
+  }
+
+  nav.main-navigation.mobile-menu .sub-menu > li > a {
+    padding: 10px 0 10px 18px;
+  }
+
+  nav.main-navigation.mobile-menu .sub-menu .sub-menu > li > a {
+    padding-left: 30px;
+  }
+}
+
 /* Results should never be interactive unless the component says it's open */
 .gooey-search__results {
   pointer-events: auto;
