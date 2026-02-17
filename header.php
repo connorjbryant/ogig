@@ -19,6 +19,7 @@ $phone_tel     = $acf('phone_tel');
 $email         = $acf('email');
 $address       = $acf('address');
 $hours         = $acf('hours');
+$topbar_tagline = $acf('topbar_tagline');
 
 $fax_display   = $acf('fax_display');
 $fax_tel       = $acf('fax_tel');
@@ -28,7 +29,6 @@ $maps_url = $address_one_line
   ? ('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($address_one_line))
   : '';
 
-$topbar_tagline = 'Precision Craftsmanship Since 1969, Engineered for Excellence.';
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
