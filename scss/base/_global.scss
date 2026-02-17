@@ -45,11 +45,11 @@
   --type-h2: var(--f5);
   --type-h1: var(--f6);
 
-  /* Hero scale used by About + PCH (and any other hero) */
-  --type-hero: clamp(var(--f4), 5vw, var(--f6));
+  /* Hero: stronger mobile presence, still scales to full size on big screens */
+  --type-hero: clamp(2.75rem, 6vw, var(--f6));   // ~44px min → better mobile punch
 
-  /* Subhead used for card titles / section headings inside modules */
-  --type-subhead: clamp(var(--f3), 2.2vw, var(--f4));
+  /* Subhead: gentler vw so it doesn't shrink as aggressively, reasonable min */
+  --type-subhead: clamp(1.375rem, 3.5vw, var(--f4));  // ~22px min, scales to 2rem
 }
 
 /* Page as a column that fills the viewport */
