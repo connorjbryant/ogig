@@ -744,3 +744,12 @@ add_filter('template_include', function ($template) {
 
   return $template;
 }, 999);
+
+add_action('init', function () {
+    if (get_role('distributor')) return;
+
+    $base = get_role('customer');
+    $caps = $base ? $base->capabilities : [];
+
+    add_role('distributor', 'Distributor', $caps);
+});

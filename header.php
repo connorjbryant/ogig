@@ -152,9 +152,11 @@ $maps_url = $address_one_line
           </div>
         </div>
 
-        <a class="header-btn header-btn--dealer" href="<?php echo esc_url(home_url('/dealer-login/')); ?>">
+        <a class="header-btn header-btn--dealer"
+          href="<?php echo esc_url( wp_login_url( home_url('/home/') ) ); ?>">
           Dealer Login
         </a>
+
 
         <nav class="main-navigation mobile-menu" role="navigation" aria-label="<?php echo esc_attr__('Primary Menu', 'textdomain'); ?>">
 
