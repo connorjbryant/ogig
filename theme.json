@@ -57,6 +57,7 @@
           "name": "Zimmer"
         }
       ],
+      "fluid": true,
       "fontSizes": [
         { "slug": "level-0", "size": "0.75rem", "name": "Level 0" },
         { "slug": "level-1", "size": "1rem",    "name": "Level 1" },
@@ -64,7 +65,12 @@
         { "slug": "level-3", "size": "1.5rem",  "name": "Level 3" },
         { "slug": "level-4", "size": "2rem",    "name": "Level 4" },
         { "slug": "level-5", "size": "4rem",    "name": "Level 5" },
-        { "slug": "level-6", "size": "5rem",    "name": "Level 6" }
+        { "slug": "level-6", "size": "5rem",    "name": "Level 6" },
+        {
+          "slug": "level-6",
+          "size": "clamp(2.75rem, 8vw + 1rem, 5rem)",
+          "name": "Level 6 (H1 base)"
+        }
       ]
     },
     "custom": {
