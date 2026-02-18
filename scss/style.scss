@@ -39,7 +39,7 @@ html.no-js [data-aos] {
 
 /* Price tag */
 .woocommerce:where(body:not(.woocommerce-uses-block-theme)) ul.products li.product .price {
-  color: var(--brand-color);;
+  color: black;
 }
 
 .sku {

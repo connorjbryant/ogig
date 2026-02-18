@@ -111,13 +111,6 @@ h6,
   letter-spacing: 0.02em;
 }
 
-.h1-class {
-  margin: 0 0 2.5rem 0;
-  font-weight: 800;
-  font-size: var(--type-hero);
-  line-height: 1.05;
-}
-
 /* ======================================================
    GLOBAL HEADING SCALE (optional but recommended)
    - This makes headings match across classic, Gutenberg, and custom modules.
@@ -147,6 +140,10 @@ h3 { font-weight: 500; }
 /* Body Scroll Lock */
 body.menu-open {
   overflow: hidden;
+}
+
+.custom-align {
+  text-align: left;
 }
 
 /* Base content buttons (NOT header/footer) */
@@ -243,6 +240,21 @@ body.menu-open {
     box-shadow 0.18s ease;
 }
 
+/* Make product cards equal height & keep buttons aligned at the bottom */
+.wp-block-columns > .wp-block-column{
+  display: flex;
+}
+
+.wp-block-columns > .wp-block-column > .ogig-card{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ogig-card__actions{
+  margin-top: auto !important; /* overrides the inline margin-top from the block */
+}
+
 /* WooCommerce hover */
 .site-main .woocommerce a.button:hover,
 .site-main .woocommerce button.button:hover,
@@ -298,6 +310,43 @@ body.woocommerce-cart .wc-block-grid__products {
 /* Hide only the second H2 on Cart page */
 body.woocommerce-cart h2:nth-of-type(2) {
   display: none !important;
+}
+
+.woocommerce .cart .button.add_to_cart_button,
+.woocommerce .cart .added_to_cart {
+  margin-right: 16px !important;   /* ← main spacing between them */
+}
+
+.woocommerce .added_to_cart.wc-forward {
+  margin-left: 12px !important;    /* extra breathing room on left */
+  margin-right: 0 !important;
+}
+
+/* 4. If they are inline but too close overall — force flex layout with gap */
+.woocommerce div.product form.cart {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;                       /* modern & clean spacing between all children */
+}
+
+/* 5. Optional: Make "View cart" look more like a secondary button */
+.woocommerce .added_to_cart.wc-forward {
+  background: #f5f5f5 !important;
+  color: #333 !important;
+  border: 1px solid #333 !important;
+  padding: 10px 18px !important;
+}
+
+/* Mobile adjustments (if needed) */
+@media (max-width: 1024px) {
+  a.added_to_cart.wc-forward {
+    margin-top: 1rem;
+  }
+
+  .custom-align {
+    text-align: center;
+  }
 }
 
 a:where(:not(.wp-element-button)) {

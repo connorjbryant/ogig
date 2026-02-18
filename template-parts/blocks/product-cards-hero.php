@@ -68,7 +68,7 @@ $active_count = count($active_cards);
 
   <div class="ogig-pch__inner site-container">
     <?php if (!empty($heading)) : ?>
-      <h1 class="ogig-pch__title" data-aos="fade-down"><?php echo esc_html($heading); ?></h1>
+      <h1 class="ogig-pch__title custom-align" data-aos="fade-down"><?php echo esc_html($heading); ?></h1>
     <?php endif; ?>
 
     <?php if ($active_count > 0) : ?>
