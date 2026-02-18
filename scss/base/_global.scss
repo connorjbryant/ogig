@@ -111,6 +111,13 @@ h6,
   letter-spacing: 0.02em;
 }
 
+.h1-class {
+  margin: 0 0 2.5rem 0;
+  font-weight: 800;
+  font-size: var(--type-hero);
+  line-height: 1.05;
+}
+
 /* ======================================================
    GLOBAL HEADING SCALE (optional but recommended)
    - This makes headings match across classic, Gutenberg, and custom modules.
@@ -283,8 +290,24 @@ a.added_to_cart.wc-forward:focus-visible,
   outline-offset: 2px;
 }
 
+/* Cart page only: hide the "New in store" products grid */
+body.woocommerce-cart .wc-block-grid__products {
+  display: none !important;
+}
+
+/* Hide only the second H2 on Cart page */
+body.woocommerce-cart h2:nth-of-type(2) {
+  display: none !important;
+}
+
 a:where(:not(.wp-element-button)) {
   color: black;
+}
+
+.wp-block-cover {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
 /* WordPress alignment helpers (works w/ classic + block themes) */

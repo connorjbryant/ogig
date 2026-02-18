@@ -746,10 +746,10 @@ add_filter('template_include', function ($template) {
 }, 999);
 
 add_action('init', function () {
-    if (get_role('distributor')) return;
+  if (get_role('distributor')) return;
 
-    $base = get_role('customer');
-    $caps = $base ? $base->capabilities : [];
+  $base = get_role('customer');
+  $caps = $base ? $base->capabilities : [];
 
-    add_role('distributor', 'Distributor', $caps);
+  add_role('distributor', 'Distributor', $caps);
 });
