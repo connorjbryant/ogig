@@ -17,6 +17,9 @@
   --ogig-button-bg-hover: #444b52;
   --ogig-button-text: #ffffff;
   --ogig-button-outline: var(--brand-color);
+  --ogig-success: #2e7d32;   /* slightly deeper than #4caf50 */
+  --ogig-success-bg: rgba(46,125,50,0.12);
+  --ogig-success-ring: rgba(46,125,50,0.35);
 
   /* fallback gutter if theme.json variables aren't present */
   --ogig-gutter: clamp(16px, 4vw, 32px);
@@ -250,6 +253,34 @@ body.menu-open {
 .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product p.price,
 .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product span.price {
   color: black;
+}
+
+/* Archive/grid AJAX link */
+a.added_to_cart.wc-forward,
+.woocommerce-message a.button.wc-forward{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  background: var(--ogig-button-bg);
+  color: white;
+  border: 1px solid var(--ogig-success-ring);
+
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+
+  box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+  text-decoration: none;
+}
+
+a.added_to_cart.wc-forward:focus-visible,
+.woocommerce-message a.button.wc-forward:focus-visible{
+  outline: 2px solid rgba(46,125,50,0.45);
+  outline-offset: 2px;
 }
 
 a:where(:not(.wp-element-button)) {

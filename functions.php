@@ -382,6 +382,24 @@ function ogig_title_above_price() {
   echo '<h1 class="ogig-product-title">' . get_the_title() . '</h1>';
 }
 
+// Force enqueue cart fragments script (needed since WC 7.8+ defaults to not loading it)
+add_action('wp_enqueue_scripts', function() {
+    if (class_exists('WooCommerce')) {
+        wp_enqueue_script('wc-cart-fragments');
+    }
+}, 100);
+
+// Register your custom cart count as a fragment so it refreshes on AJAX changes
+add_filter('woocommerce_add_to_cart_fragments', 'yourtheme_cart_count_fragment');
+function yourtheme_cart_count_fragment($fragments) {
+    ob_start();
+    ?>
+    <span class="header__cart-count"><?php echo (int) WC()->cart->get_cart_contents_count(); ?></span>
+    <?php
+    $fragments['.header__cart-count'] = ob_get_clean();
+    return $fragments;
+}
+
 /* Custom add to cart animation of a hex nut */
 add_action( 'woocommerce_before_add_to_cart_button', 'ogig_gear2_wrap_open', 1 );
 function ogig_gear2_wrap_open(){
