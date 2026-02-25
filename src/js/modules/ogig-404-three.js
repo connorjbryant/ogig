@@ -109,7 +109,7 @@ export function init404Three($) {
     ctx.fillText(title, c.width / 2, innerY + innerH * 0.42);
 
     // Subtitle
-    const sub = 'Page not found.';
+    const sub = '404';
     const subPx = fitText(sub, innerW * 0.84, 72, 34, 800);
     ctx.globalAlpha = 0.95;
     ctx.font = `800 ${subPx}px Arial, sans-serif`;
