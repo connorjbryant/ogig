@@ -51,7 +51,20 @@ add_action('wp_enqueue_scripts', function () {
       [],
       null
     );
+    // Brand overrides (loads AFTER main theme CSS)
+    add_action('wp_enqueue_scripts', function () {
+      $rel = '/assets/css/brand-overrides.css';
+      $fs  = get_stylesheet_directory() . $rel;
 
+      if (file_exists($fs)) {
+        wp_enqueue_style(
+          'ogig-brand-overrides',
+          get_stylesheet_directory_uri() . $rel,
+          ['theme-style'],            // important: load after the theme CSS
+          filemtime($fs)
+        );
+      }
+    }, 100);
 
     // CSS: prefer build/css/style.min.css → fallback to root style.css
     $build_css_fs = get_stylesheet_directory() . '/build/css/style.min.css';
@@ -752,4 +765,132 @@ add_action('init', function () {
   $caps = $base ? $base->capabilities : [];
 
   add_role('distributor', 'Distributor', $caps);
+});
+
+add_filter('login_redirect', function($redirect_to, $request, $user) {
+
+    // Always send to homepage
+    $target = home_url('/home');
+
+    // Distributor: add a one-time flag so we can show the welcome once
+    if (isset($user->roles) && in_array('distributor', (array) $user->roles, true)) {
+        return add_query_arg('dist_login', '1', $target);
+    }
+
+    // Everyone else: no flag
+    return $target;
+
+}, 10, 3);
+
+add_action('wp_body_open', function() {
+    if (!is_user_logged_in()) return;
+
+    $user = wp_get_current_user();
+
+    // Show only right after login (via URL flag)
+    if (
+        in_array('distributor', (array) $user->roles, true) &&
+        isset($_GET['dist_login']) &&
+        $_GET['dist_login'] === '1'
+    ) {
+        $account_url = esc_url( home_url('/my-account/') );
+        ?>
+        <style>
+          :root { --ogig-banner-h: 56px; }
+
+          body.ogig-has-dist-banner {
+            padding-top: var(--ogig-banner-h);
+          }
+
+          .ogig-dist-banner {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            /*height: var(--ogig-banner-h);*/
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #0f9d58, #0b7a45);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(0,0,0,.18);
+          }
+
+          .ogig-dist-banner__inner {
+            width: 100%;
+			width: min(var(--wp--style--global--content-size, 1200px), 100% - 2 * var(--ogig-gutter)) !important;
+    		margin-inline: auto;
+    		padding-inline: var(--ogig-gutter);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+          }
+
+          .ogig-dist-banner__msg {
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+          }
+
+          .ogig-dist-banner__btn {
+            color: #fff;
+            text-decoration: underline;
+            font-weight: 800;
+            /*border-radius: 10px;*/
+            white-space: nowrap;
+			font-size: 14px;
+          }
+
+          .ogig-dist-banner__close {
+            background: transparent;
+            border: 0;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            opacity: .9;
+            /*padding: 6px 10px;*/
+          }
+
+          @media (max-width: 600px) {
+            :root { --ogig-banner-h: 74px; }
+            .ogig-dist-banner__inner { padding-top: 10px; padding-bottom: 10px; }
+          }
+        </style>
+
+        <div class="ogig-dist-banner" id="ogigDistBanner" role="status" aria-live="polite">
+          <div class="ogig-dist-banner__inner">
+            <div class="ogig-dist-banner__msg">
+				Logged in as Dealer
+              <span style="font-weight:600; opacity:.95;">View past history in My Account.</span>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:10px;">
+              <a class="ogig-dist-banner__btn" href="<?php echo $account_url; ?>">My Account</a>
+              <button class="ogig-dist-banner__close" type="button" aria-label="Dismiss">×</button>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          (function(){
+            document.body.classList.add('ogig-has-dist-banner');
+
+            const banner = document.getElementById('ogigDistBanner');
+            banner?.querySelector('.ogig-dist-banner__close')?.addEventListener('click', () => {
+              document.body.classList.remove('ogig-has-dist-banner');
+              banner.remove();
+            });
+
+            // remove the flag so refresh/back doesn't show it again
+            if (window.history.replaceState) {
+              const url = new URL(window.location.href);
+              url.searchParams.delete('dist_login');
+              window.history.replaceState({}, document.title, url.pathname + url.search);
+            }
+          })();
+        </script>
+        <?php
+    }
 });

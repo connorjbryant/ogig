@@ -40,11 +40,11 @@ $map_iframe   = $settings_id ? (string) get_field('footer_map_iframe', $settings
             </p>
           <?php endif; ?>
 
-          <?php if (!empty($about_btn_t) && !empty($about_btn_u)) : ?>
-            <a class="footer-btn" href="<?php echo esc_url($about_btn_u); ?>">
-              <?php echo esc_html($about_btn_t); ?>
+          <!-- ?php if (!empty($about_btn_t) && !empty($about_btn_u)) : ?>
+            <a class="footer-btn" href="?php echo esc_url($about_btn_u); ?>">
+              ?php echo esc_html($about_btn_t); ?>
             </a>
-          <?php endif; ?>
+          ?php endif; ?> -->
 
           <div class="footer-social" aria-label="Social links">
             <?php

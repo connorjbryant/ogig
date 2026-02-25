@@ -1,0 +1,195 @@
+/* =========================================================
+   OGIG Brand Color Override (Customizer-safe + WCAG friendly)
+   Goals:
+   - Override theme brand token
+   - Replace remaining hardcoded reds
+   - Keep hover/focus states readable on dark backgrounds
+========================================================= */
+
+/* ------------------------------
+   1) Global brand tokens
+------------------------------ */
+:root{
+  --brand-color: #B30600;
+  --brand-rgb: 179, 6, 0;
+
+  /* Accessible “brand-ish” text on dark backgrounds */
+  --brand-hover-on-dark: #ff6a5f; /* fallback */
+  --brand-hover-on-dark: color-mix(in srgb, var(--brand-color) 55%, white);
+
+  /* Generic focus ring (WCAG) */
+  --focus-ring: color-mix(in srgb, var(--brand-color) 70%, white);
+}
+
+/* ------------------------------
+   2) Header buttons (remove hardcoded red)
+------------------------------ */
+.header-btn--dealer2,
+.header-btn--cta2{
+  background: var(--brand-color);
+  color: #fff;
+}
+
+/* Optional hover state for header buttons */
+.header-btn--dealer2:hover,
+.header-btn--cta2:hover{
+  background: color-mix(in srgb, var(--brand-color) 88%, white);
+}
+
+/* ------------------------------
+   3) Theme hardcoded fixes
+------------------------------ */
+.footer-title::after{
+  background: var(--brand-color);
+}
+
+.footer-btn,
+.ogig-pch__btn{
+  background: var(--brand-color);
+  color: #fff;
+}
+
+.footer-btn:hover,
+.ogig-pch__btn:hover{
+  background: color-mix(in srgb, var(--brand-color) 88%, white);
+}
+
+/* About block “trust heading” bullet + gradient */
+.aboutblock__trust-heading::before{
+  background: var(--brand-color);
+  box-shadow: 0 0 0 5px rgba(var(--brand-rgb), 0.12);
+}
+.aboutblock__trust-heading::after{
+  background: linear-gradient(
+    to bottom,
+    var(--brand-color) 0%,
+    rgba(var(--brand-rgb), 0.18) 60%,
+    rgba(var(--brand-rgb), 0) 100%
+  );
+}
+
+/* ------------------------------
+   4) Footer: WCAG-safe link + icon behavior
+   - Keep text high contrast on dark
+   - Use brand as underline/accent
+------------------------------ */
+
+/* Base footer text/link color */
+.site-footer,
+.site-footer a,
+.footer-menu a,
+.footer-contact__value{
+  color: rgba(255,255,255,0.88);
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 2px;
+}
+
+/* Hover/focus: keep text white + show brand underline */
+.site-footer a:hover,
+.site-footer a:focus-visible,
+.footer-menu a:hover,
+.footer-menu a:focus-visible,
+.footer-contact__value:hover,
+.footer-contact__value:focus-visible{
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: var(--brand-color);
+}
+
+/* Footer “brand colored” icons: keep readable, use brand only as accent on hover */
+.footer-contact__row i{
+  color: rgba(255,255,255,0.88);
+}
+.footer-contact__row:hover i,
+.footer-contact__row:focus-within i{
+  color: var(--brand-hover-on-dark);
+}
+
+/* Footer social buttons: brand background is OK, but ensure icon stays white */
+.footer-social a:hover,
+.footer-social a:focus-visible,
+.footer-bottom__social a:hover,
+.footer-bottom__social a:focus-visible{
+  border-color: var(--brand-color);
+  background: var(--brand-color);
+  color: #fff;
+}
+
+/* Back to top button hover */
+.backtotop:hover,
+.backtotop:focus-visible{
+  border-color: var(--brand-color);
+  background: var(--brand-color);
+  color: #fff;
+}
+
+/* If you still want copyright link to be "brand", use underline instead of text color */
+.footer-copyright a{
+  color: rgba(255,255,255,0.88);
+}
+.footer-copyright a:hover,
+.footer-copyright a:focus-visible{
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: var(--brand-color);
+}
+
+/* ------------------------------
+   5) Mobile nav CTA
+------------------------------ */
+.mobile-nav-cta{ display:none; }
+
+@media (max-width: 1024px){
+  .mobile-nav-cta{
+    display:grid;
+    gap:12px;
+    margin-bottom:16px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,.12);
+  }
+  .mobile-nav-cta .header-btn{
+    width:100%;
+    justify-content:center;
+  }
+}
+
+a.header-btn.header-btn--dealer2 {
+	display: none;
+}
+
+/* Zoom styles woo products */
+.pswp__bg {
+	background-color: #0000006b !important;
+}
+
+/* Utility Menu */
+.topbar-contact__btn, .topbar-contact__link, .topbar-phone, .topbar-tagline {
+	font-size: 1rem !important;
+}
+
+/* Product card hero overflow fix */
+.ogig-pch__card-media img {
+	max-height: 99%;
+}
+
+/* Homepage gray cards update */
+.ogig-fc__card-title, .ogig-fc__card-subtitle {
+	font-size: var(--f3);
+}
+
+/* SERP spacing when JS is off */
+html.no-js .ogig-search-title {
+  margin-top: 12rem;
+}
+
+/* Dealer login hidden */
+a.header-btn.header-btn--dealer {
+	visibility: hidden;
+}
+
+@media (max-width: 1024px){
+	html.no-js .ogig-search-title {
+  	margin-top: 8rem;
+	}
+}
