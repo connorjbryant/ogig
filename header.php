@@ -136,7 +136,7 @@ $maps_url = $address_one_line
 
       <noscript>
         <div class="no-js-banner" role="alert" aria-live="polite">
-          <p><strong>Heads up:</strong> Please enable JavaScript to use the mobile menu.</p>
+          <p><strong>Heads up:</strong> Please enable JavaScript to use all website features.</p>
         </div>
       </noscript>
 
