@@ -108,7 +108,7 @@ export function init404Three($) {
     ctx.font = `900 ${titlePx}px Arial, sans-serif`;
     ctx.fillText(title, c.width / 2, innerY + innerH * 0.42);
 
-    // Subtitle (your line)
+    // Subtitle
     const sub = 'Page not found.';
     const subPx = fitText(sub, innerW * 0.84, 72, 34, 800);
     ctx.globalAlpha = 0.95;
