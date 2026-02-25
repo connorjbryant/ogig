@@ -5,6 +5,7 @@ import { initAOS } from './modules/aos-init';
 import { initMisc } from './modules/misc';
 import { initFooterThree } from './modules/footer-three';
 import { initTestimonialsSlider } from './modules/testimonials-slider';
+import { init404Three } from './modules/ogig-404-three';
 
 // Safe wrapper to call from DOM ready + window.load (Ensure three.js loads)
 function safeInitFooterThree($) {
@@ -24,6 +25,10 @@ jQuery(function ($) {
 
   // Run footer init once DOM is ready
   safeInitFooterThree($);
+
+  if (document.body.classList.contains('error404')) {
+    init404Three($);
+  }
 
   // Extra safety: if the canvas was 0×0 at first, try again after full load
   $(window).on('load', function () {

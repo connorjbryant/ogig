@@ -1,0 +1,74 @@
+/* Base: stack on mobile */
+.error-404__inner{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.error-404__content{
+  width: 100%;
+  max-width: 34rem;
+  text-align: center;
+}
+
+.error-404__stage{
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  gap: .75rem;
+  justify-items: center;
+}
+
+/* 3D stage */
+#ogig-404-3d{
+  width: 100%;
+  height: 320px;              /* mobile default */
+  min-height: 260px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: radial-gradient(circle at 30% 20%, rgba(0,0,0,0.06), transparent 70%);
+  box-shadow: 0 1.5rem 3rem -1rem rgba(0,0,0,0.18);
+}
+#ogig-404-3d canvas{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Hint: keep subtle */
+.error-404__hint{
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.75;
+}
+
+/* Desktop: side-by-side, BIG stage */
+@media (min-width: 900px){
+  .error-404__inner{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+
+  .error-404__content{
+    text-align: left;
+    max-width: 28rem;
+    flex: 0 0 28rem;
+  }
+
+  .error-404__stage{
+    flex: 1 1 0;
+    max-width: none;
+    justify-items: end;
+    margin-top: 1rem;
+  }
+
+  #ogig-404-3d{
+    height: clamp(460px, 55vh, 720px); /* big on desktop */
+    min-height: 460px;
+    border-radius: 24px;
+    box-shadow: 0 3.5rem 7rem -2rem rgba(0,0,0,0.28);
+  }
+}
