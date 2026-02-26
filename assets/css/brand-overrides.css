@@ -193,3 +193,91 @@ a.header-btn.header-btn--dealer {
   	margin-top: 8rem;
 	}
 }
+
+/* =========================================================
+   WooCommerce Blocks (Cart / Checkout) typography fix
+   - Blocks often set their own smaller font-size / variables
+   - This makes Blocks match global type tokens
+========================================================= */
+
+/* 1) Set a consistent base size on the blocks root */
+body.woocommerce-cart .wc-block-cart,
+body.woocommerce-checkout .wc-block-checkout {
+  font-size: var(--type-body);
+}
+
+/* 2) Make common block wrappers inherit (some themes/plugins set 14px here) */
+body.woocommerce-cart .wc-block-cart *,
+body.woocommerce-checkout .wc-block-checkout * {
+  font-size: inherit;
+}
+
+/* 3) Re-apply intended “small text” ONLY where it makes sense */
+body.woocommerce-cart .wc-block-cart .wc-block-components-product-price,
+body.woocommerce-cart .wc-block-cart .wc-block-components-totals-item__description,
+body.woocommerce-cart .wc-block-cart .wc-block-components-shipping-rates-control__package-details,
+body.woocommerce-checkout .wc-block-checkout .wc-block-components-product-price,
+body.woocommerce-checkout .wc-block-checkout .wc-block-components-totals-item__description {
+  font-size: var(--type-small);
+}
+
+/* 4) Buttons already styled by you, but keep them consistent */
+body.woocommerce-cart .wc-block-cart .wc-block-components-button,
+body.woocommerce-checkout .wc-block-checkout .wc-block-components-button {
+  font-size: var(--type-body);
+}
+
+/* 5) If Blocks are using their own font-size variables, override them too */
+body.woocommerce-cart .wc-block-cart,
+body.woocommerce-checkout .wc-block-checkout {
+  --wc-block-components-font-size: var(--type-body);
+  --wc-block-components-font-size-base: var(--type-body);
+}
+
+/* =========================================================
+   WC Blocks Cart <tbody> row typography (finish pass)
+========================================================= */
+.wc-block-components-sidebar-layout {
+  margin-top: 2rem !important;
+}
+
+/* Make the cart rows match your body type */
+body.woocommerce-cart .wc-block-cart-items__row,
+body.woocommerce-cart .wc-block-cart-items__row td,
+body.woocommerce-cart .wc-block-cart-item__wrap {
+  font-size: var(--type-body);
+}
+
+table.wc-block-cart-items .wc-block-cart-items__header {
+  font-size: var(--type-body) !important;
+}
+
+.wc-block-components-totals-coupon__form {
+  display: inline-grid !important;
+}
+
+/* Product name should be “normal body” (not tiny link) */
+a.wc-block-components-product-name {
+  font-size: var(--type-body) !important;
+  line-height: 1.3;
+}
+
+/* Prices often get scaled down by Blocks — force consistent */
+body.woocommerce-cart .wc-block-cart-item__prices,
+body.woocommerce-cart .wc-block-cart-item__total,
+body.woocommerce-cart .wc-block-components-product-price,
+body.woocommerce-cart .wc-block-components-product-price__value,
+body.woocommerce-cart .wc-block-components-formatted-money-amount{
+  font-size: var(--type-body);
+}
+
+/* Quantity input + +/- controls */
+body.woocommerce-cart .wc-block-components-quantity-selector__input,
+body.woocommerce-cart .wc-block-components-quantity-selector__button{
+  font-size: var(--type-body);
+}
+
+/* “Remove item” is usually styled like helper text — bump it */
+body.woocommerce-cart .wc-block-cart-item__remove-link{
+  font-size: var(--type-body);
+}
