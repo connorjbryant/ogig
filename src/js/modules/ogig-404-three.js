@@ -316,7 +316,7 @@ export function init404Three($) {
   signGroup.position.set(0, 0.55, 0.35);
   root.add(signGroup);
 
-  // Stake (vertical rectangle) — the “cartoon fence” you described
+  // Stake (vertical rectangle)
   const stake = new THREE.Mesh(new THREE.BoxGeometry(0.28, 3.2, 0.22), darkMat);
   stake.position.set(0, -0.55, 0);
   stake.castShadow = true;
@@ -430,6 +430,11 @@ export function init404Three($) {
 
   window.addEventListener('resize', onResize);
 
+  window.addEventListener('mousemove', (event) => {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  });
+
   onResize();
   requestAnimationFrame(() => requestAnimationFrame(onResize));
 
@@ -441,6 +446,13 @@ export function init404Three($) {
   const introSpinAmount = Math.PI * 0.6; // ~108° rotation
 
   const clock = new THREE.Clock();
+
+  // Mouse tracking (-1 to +1)
+  let mouse = new THREE.Vector2(0, 0);
+  let smoothedMouse = new THREE.Vector2(0, 0); // for damping
+
+  const tiltStrength = 0.22;     // how much overall rotation (lower = subtler)
+  const lerpSpeed = 0.08;        // 0.04–0.12 range; lower = smoother/lazier
 
   function easeOutCubic(t) {
     return 1 - Math.pow(1 - t, 3);
@@ -454,30 +466,44 @@ export function init404Three($) {
     const t = clock.elapsedTime;
 
     if (!reduceMotion) {
-
-      // ---- One-time intro spin ----
+      // One-time intro spin
       if (introSpinProgress < 1) {
         introSpinProgress += dt / introSpinDuration;
         if (introSpinProgress > 1) introSpinProgress = 1;
-
         const eased = easeOutCubic(introSpinProgress);
-
-        // Rotate from -amount → 0 (so it lands facing camera)
         root.rotation.y = -introSpinAmount * (1 - eased);
       }
 
-      // ---- Subtle life ----
+      // Smooth mouse
+      smoothedMouse.x += (mouse.x - smoothedMouse.x) * lerpSpeed;
+      smoothedMouse.y += (mouse.y - smoothedMouse.y) * lerpSpeed;
+
+      // Tilt whole island + subtle extra on sign
+      const tiltAmt = 0.18;  // reduced from 0.22 — less aggressive
+      island.rotation.y = smoothedMouse.x * tiltAmt;
+      island.rotation.x = smoothedMouse.y * -tiltAmt;
+
+      signGroup.rotation.y = smoothedMouse.x * tiltAmt * 1.5;  // sign leans a bit more
+      signGroup.rotation.x = smoothedMouse.y * -tiltAmt * 1.2;
+
+      // Optional tiny slide for depth
+      // island.position.x = smoothedMouse.x * 0.15;
+      // island.position.z = smoothedMouse.y * -0.15;
+
+      // Bob
       const bob = Math.sin(t * 0.9) * 0.03;
       island.position.y = bob * 0.35;
 
-      // Keep the sign sway
+      // Sign sway
       board.rotation.z = Math.sin(t * 0.75) * 0.035;
-
     } else {
       island.position.y = 0;
       board.rotation.z = 0;
+      island.rotation.set(0, 0, 0);
+      signGroup.rotation.set(0, 0, 0);
     }
 
+    fitCameraToRoot();
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
   }
