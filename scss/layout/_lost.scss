@@ -20,6 +20,28 @@
   justify-items: center;
 }
 
+.error-404__rotate-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #f6c400; /* Match sign yellow */
+  color: #111;
+  border: 2px solid #111;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.active {
+    background: #111;
+    color: #f6c400;
+  }
+}
+
 /* 3D stage */
 #ogig-404-3d{
   width: 100%;

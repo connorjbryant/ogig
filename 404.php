@@ -18,9 +18,6 @@
       <div id="ogig-404-3d" aria-hidden="true">
         <canvas class="webgl"></canvas>
       </div>
-
-      <!-- Option B: subtle hint (not on the sign) -->
-      <p class="error-404__hint" aria-hidden="true">Tip: drag/swipe the sign to swing it.</p>
       <br />
     </div>
 
