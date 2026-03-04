@@ -135,6 +135,10 @@
   text-decoration-color: var(--brand-color);
 }
 
+.is-mobile {
+	display: none;
+}
+
 /* ------------------------------
    5) Mobile nav CTA
 ------------------------------ */
@@ -151,6 +155,9 @@
   .mobile-nav-cta .header-btn{
     width:100%;
     justify-content:center;
+  }
+  .is-mobile {
+	display: flex;
   }
 }
 
