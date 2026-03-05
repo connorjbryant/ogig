@@ -288,3 +288,8 @@ body.woocommerce-cart .wc-block-components-quantity-selector__button{
 body.woocommerce-cart .wc-block-cart-item__remove-link{
   font-size: var(--type-body);
 }
+
+/* When JavaScript is disabled: push down only the first element */
+html.no-js .site-main > *:first-child {
+  margin-top: 200px !important;
+}
