@@ -293,3 +293,11 @@ body.woocommerce-cart .wc-block-cart-item__remove-link{
 html.no-js .site-main > *:first-child {
   margin-top: 200px !important;
 }
+
+.woocommerce-Tabs-panel h2 {
+  display: none;
+}
+
+footer {
+  border-top: 1px solid white;
+}
