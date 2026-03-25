@@ -301,3 +301,7 @@ html.no-js .site-main > *:first-child {
 footer {
   border-top: 1px solid white;
 }
+
+body.woocommerce-cart .wc-block-cart *, body.woocommerce-checkout .wc-block-checkout * {
+  font-size: initial !important;
+}
