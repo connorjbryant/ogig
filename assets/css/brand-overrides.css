@@ -309,3 +309,7 @@ body.woocommerce-cart .wc-block-cart *, body.woocommerce-checkout .wc-block-chec
 .woocommerce .woocommerce-customer-details .woocommerce-column__title {
   padding-top: 1rem;
 }
+
+.woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product .stock {
+  color: var(--ogig-success);
+}
