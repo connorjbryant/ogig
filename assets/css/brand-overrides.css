@@ -305,3 +305,7 @@ footer {
 body.woocommerce-cart .wc-block-cart *, body.woocommerce-checkout .wc-block-checkout * {
   font-size: initial !important;
 }
+
+.woocommerce .woocommerce-customer-details .woocommerce-column__title {
+  padding-top: 1rem;
+}
