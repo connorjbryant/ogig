@@ -1,65 +1,59 @@
 /* =========================================================
-   OGIG Brand Color Override (Customizer-safe + WCAG friendly)
-   Goals:
-   - Override theme brand token
-   - Replace remaining hardcoded reds
-   - Keep hover/focus states readable on dark backgrounds
+   OGIG Brand Color Override + Fixes (Updated March 2026)
+   - Brand colors
+   - Footer overlap fix
+   - __trust slow rendering fix (backdrop-filter + paint optimization)
 ========================================================= */
 
 /* ------------------------------
    1) Global brand tokens
 ------------------------------ */
-:root{
-  --brand-color: #B30600;
+:root {
+  --brand-color: #b30600;
   --brand-rgb: 179, 6, 0;
-
-  /* Accessible “brand-ish” text on dark backgrounds */
-  --brand-hover-on-dark: #ff6a5f; /* fallback */
   --brand-hover-on-dark: color-mix(in srgb, var(--brand-color) 55%, white);
-
-  /* Generic focus ring (WCAG) */
   --focus-ring: color-mix(in srgb, var(--brand-color) 70%, white);
 }
 
 /* ------------------------------
-   2) Header buttons (remove hardcoded red)
+   2) Header buttons
 ------------------------------ */
 .header-btn--dealer2,
-.header-btn--cta2{
+.header-btn--cta2 {
   background: var(--brand-color);
   color: #fff;
 }
 
-/* Optional hover state for header buttons */
 .header-btn--dealer2:hover,
-.header-btn--cta2:hover{
+.header-btn--cta2:hover {
   background: color-mix(in srgb, var(--brand-color) 88%, white);
 }
 
 /* ------------------------------
    3) Theme hardcoded fixes
 ------------------------------ */
-.footer-title::after{
+.footer-title::after {
   background: var(--brand-color);
 }
 
 .footer-btn,
-.ogig-pch__btn{
+.ogig-pch__btn {
   background: var(--brand-color);
   color: #fff;
 }
 
 .footer-btn:hover,
-.ogig-pch__btn:hover{
+.ogig-pch__btn:hover {
   background: color-mix(in srgb, var(--brand-color) 88%, white);
 }
 
-/* About block “trust heading” bullet + gradient */
-.aboutblock__trust-heading::before{
+/* About block trust heading */
+.aboutblock__trust-heading::before {
   background: var(--brand-color);
   box-shadow: 0 0 0 5px rgba(var(--brand-rgb), 0.12);
 }
-.aboutblock__trust-heading::after{
+
+.aboutblock__trust-heading::after {
   background: linear-gradient(
     to bottom,
     var(--brand-color) 0%,
@@ -69,186 +63,176 @@
 }
 
 /* ------------------------------
-   4) Footer: WCAG-safe link + icon behavior
-   - Keep text high contrast on dark
-   - Use brand as underline/accent
+   4) Footer styles
 ------------------------------ */
-
-/* Base footer text/link color */
 .site-footer,
 .site-footer a,
 .footer-menu a,
-.footer-contact__value{
-  color: rgba(255,255,255,0.88);
+.footer-contact__value {
+  color: rgba(255, 255, 255, 0.88);
   text-decoration: none;
   text-underline-offset: 0.18em;
   text-decoration-thickness: 2px;
 }
 
-/* Hover/focus: keep text white + show brand underline */
 .site-footer a:hover,
 .site-footer a:focus-visible,
 .footer-menu a:hover,
 .footer-menu a:focus-visible,
 .footer-contact__value:hover,
-.footer-contact__value:focus-visible{
+.footer-contact__value:focus-visible {
   color: #fff;
   text-decoration: underline;
   text-decoration-color: var(--brand-color);
 }
 
-/* Footer “brand colored” icons: keep readable, use brand only as accent on hover */
-.footer-contact__row i{
-  color: rgba(255,255,255,0.88);
+.footer-contact__row i {
+  color: rgba(255, 255, 255, 0.88);
 }
+
 .footer-contact__row:hover i,
-.footer-contact__row:focus-within i{
+.footer-contact__row:focus-within i {
   color: var(--brand-hover-on-dark);
 }
 
-/* Footer social buttons: brand background is OK, but ensure icon stays white */
 .footer-social a:hover,
 .footer-social a:focus-visible,
 .footer-bottom__social a:hover,
-.footer-bottom__social a:focus-visible{
+.footer-bottom__social a:focus-visible {
   border-color: var(--brand-color);
   background: var(--brand-color);
   color: #fff;
 }
 
-/* Back to top button hover */
 .backtotop:hover,
-.backtotop:focus-visible{
+.backtotop:focus-visible {
   border-color: var(--brand-color);
   background: var(--brand-color);
   color: #fff;
 }
 
-/* If you still want copyright link to be "brand", use underline instead of text color */
-.footer-copyright a{
-  color: rgba(255,255,255,0.88);
+.footer-copyright a {
+  color: rgba(255, 255, 255, 0.88);
 }
+
 .footer-copyright a:hover,
-.footer-copyright a:focus-visible{
+.footer-copyright a:focus-visible {
   color: #fff;
   text-decoration: underline;
   text-decoration-color: var(--brand-color);
 }
 
+/* ------------------------------
+   5) Mobile nav & utilities
+------------------------------ */
 .is-mobile {
-	display: none;
+  display: none;
 }
 
-/* ------------------------------
-   5) Mobile nav CTA
------------------------------- */
-.mobile-nav-cta{ display:none; }
+.mobile-nav-cta {
+  display: none;
+}
 
-@media (max-width: 1024px){
-  .mobile-nav-cta{
-    display:grid;
-    gap:12px;
-    margin-bottom:16px;
-    padding-top:16px;
-    border-top:1px solid rgba(255,255,255,.12);
+@media (max-width: 1024px) {
+  .mobile-nav-cta {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
   }
-  .mobile-nav-cta .header-btn{
-    width:100%;
-    justify-content:center;
+  .mobile-nav-cta .header-btn {
+    width: 100%;
+    justify-content: center;
   }
   .is-mobile {
-	display: flex;
+    display: flex;
   }
 }
 
 a.header-btn.header-btn--dealer2 {
-	display: none;
+  display: none;
 }
 
-/* Zoom styles woo products */
+/* ------------------------------
+   6) Various fixes
+------------------------------ */
 .pswp__bg {
-	background-color: #0000006b !important;
+  background-color: #0000006b !important;
 }
 
-/* Utility Menu */
-.topbar-contact__btn, .topbar-contact__link, .topbar-phone, .topbar-tagline {
-	font-size: 1rem !important;
+.topbar-contact__btn,
+.topbar-contact__link,
+.topbar-phone,
+.topbar-tagline {
+  font-size: 1rem !important;
 }
 
-/* Product card hero overflow fix */
 .ogig-pch__card-media img {
-	max-height: 99%;
+  max-height: 99%;
 }
 
-/* Homepage gray cards update */
-.ogig-fc__card-title, .ogig-fc__card-subtitle {
-	font-size: var(--f3);
+.ogig-fc__card-title,
+.ogig-fc__card-subtitle {
+  font-size: var(--f3);
 }
 
-/* SERP spacing when JS is off */
 html.no-js .ogig-search-title {
   margin-top: 12rem;
 }
 
-/* Dealer login hidden */
 a.header-btn.header-btn--dealer {
-	visibility: hidden;
+  visibility: hidden;
 }
 
-@media (max-width: 1024px){
-	html.no-js .ogig-search-title {
-  	margin-top: 8rem;
-	}
+@media (max-width: 1024px) {
+  html.no-js .ogig-search-title {
+    margin-top: 8rem;
+  }
 }
 
 /* =========================================================
-   WooCommerce Blocks (Cart / Checkout) typography fix
-   - Blocks often set their own smaller font-size / variables
-   - This makes Blocks match global type tokens
+   WooCommerce Blocks Typography Fixes
 ========================================================= */
-
-/* 1) Set a consistent base size on the blocks root */
 body.woocommerce-cart .wc-block-cart,
 body.woocommerce-checkout .wc-block-checkout {
   font-size: var(--type-body);
 }
 
-/* 2) Make common block wrappers inherit (some themes/plugins set 14px here) */
 body.woocommerce-cart .wc-block-cart *,
 body.woocommerce-checkout .wc-block-checkout * {
   font-size: inherit;
 }
 
-/* 3) Re-apply intended “small text” ONLY where it makes sense */
 body.woocommerce-cart .wc-block-cart .wc-block-components-product-price,
-body.woocommerce-cart .wc-block-cart .wc-block-components-totals-item__description,
-body.woocommerce-cart .wc-block-cart .wc-block-components-shipping-rates-control__package-details,
+body.woocommerce-cart
+  .wc-block-cart
+  .wc-block-components-totals-item__description,
+body.woocommerce-cart
+  .wc-block-cart
+  .wc-block-components-shipping-rates-control__package-details,
 body.woocommerce-checkout .wc-block-checkout .wc-block-components-product-price,
-body.woocommerce-checkout .wc-block-checkout .wc-block-components-totals-item__description {
+body.woocommerce-checkout
+  .wc-block-checkout
+  .wc-block-components-totals-item__description {
   font-size: var(--type-small);
 }
 
-/* 4) Buttons already styled by you, but keep them consistent */
 body.woocommerce-cart .wc-block-cart .wc-block-components-button,
 body.woocommerce-checkout .wc-block-checkout .wc-block-components-button {
   font-size: var(--type-body);
 }
 
-/* 5) If Blocks are using their own font-size variables, override them too */
 body.woocommerce-cart .wc-block-cart,
 body.woocommerce-checkout .wc-block-checkout {
   --wc-block-components-font-size: var(--type-body);
   --wc-block-components-font-size-base: var(--type-body);
 }
 
-/* =========================================================
-   WC Blocks Cart <tbody> row typography (finish pass)
-========================================================= */
 .wc-block-components-sidebar-layout {
   margin-top: 2rem !important;
 }
 
-/* Make the cart rows match your body type */
 body.woocommerce-cart .wc-block-cart-items__row,
 body.woocommerce-cart .wc-block-cart-items__row td,
 body.woocommerce-cart .wc-block-cart-item__wrap {
@@ -263,33 +247,28 @@ table.wc-block-cart-items .wc-block-cart-items__header {
   display: inline-grid !important;
 }
 
-/* Product name should be “normal body” (not tiny link) */
 a.wc-block-components-product-name {
   font-size: var(--type-body) !important;
   line-height: 1.3;
 }
 
-/* Prices often get scaled down by Blocks — force consistent */
 body.woocommerce-cart .wc-block-cart-item__prices,
 body.woocommerce-cart .wc-block-cart-item__total,
 body.woocommerce-cart .wc-block-components-product-price,
 body.woocommerce-cart .wc-block-components-product-price__value,
-body.woocommerce-cart .wc-block-components-formatted-money-amount{
+body.woocommerce-cart .wc-block-components-formatted-money-amount {
   font-size: var(--type-body);
 }
 
-/* Quantity input + +/- controls */
 body.woocommerce-cart .wc-block-components-quantity-selector__input,
-body.woocommerce-cart .wc-block-components-quantity-selector__button{
+body.woocommerce-cart .wc-block-components-quantity-selector__button {
   font-size: var(--type-body);
 }
 
-/* “Remove item” is usually styled like helper text — bump it */
-body.woocommerce-cart .wc-block-cart-item__remove-link{
+body.woocommerce-cart .wc-block-cart-item__remove-link {
   font-size: var(--type-body);
 }
 
-/* When JavaScript is disabled: push down only the first element */
 html.no-js .site-main > *:first-child {
   margin-top: 200px !important;
 }
@@ -298,18 +277,81 @@ html.no-js .site-main > *:first-child {
   display: none;
 }
 
-footer {
-  border-top: 1px solid white;
-}
-
-body.woocommerce-cart .wc-block-cart *, body.woocommerce-checkout .wc-block-checkout * {
-  font-size: initial !important;
-}
-
 .woocommerce .woocommerce-customer-details .woocommerce-column__title {
   padding-top: 1rem;
 }
 
 .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product .stock {
   color: var(--ogig-success);
+}
+
+/* =========================================================
+   ABOUT BLOCK – Performance + Footer Fix
+========================================================= */
+
+.aboutblock {
+  z-index: 1;
+  position: relative;
+  padding-bottom: clamp(5rem, 9vw, 8rem) !important; /* Extra bottom space */
+}
+
+/* Critical performance fix for slow __trust rendering */
+.aboutblock__trust {
+  z-index: 2 !important;
+  backdrop-filter: none !important; /* Removes expensive blur */
+  background: rgba(255, 255, 255, 0.95) !important; /* Solid fallback */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.09) !important; /* Lighter shadow */
+  will-change: transform; /* Helps browser optimize */
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+.aboutblock__body {
+	color: black !important;
+}
+
+/* Desktop decorative element */
+@media (min-width: 1025px) {
+  .aboutblock__image-card {
+    position: relative;
+    z-index: 2;
+    isolation: isolate;
+    overflow: visible;
+  }
+
+  .aboutblock__image-card::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--brand-color);
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: -1;
+    clip-path: polygon(
+      0% 0%,
+      100% 0%,
+      100% 75%,
+      75% 75%,
+      75% 100%,
+      50% 75%,
+      0% 75%
+    );
+  }
+
+  .aboutblock__trust {
+    z-index: 3 !important;
+  }
+}
+
+/* Tablet & Mobile */
+@media (max-width: 1024px) {
+  .aboutblock__image-card::before {
+    display: none;
+  }
+
+  .aboutblock__trust {
+    z-index: 2 !important;
+  }
 }
