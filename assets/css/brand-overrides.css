@@ -355,3 +355,7 @@ html.no-js .site-main > *:first-child {
     z-index: 2 !important;
   }
 }
+
+body.woocommerce-cart .wc-block-cart *, body.woocommerce-checkout .wc-block-checkout * {
+	font-size: initial !important;
+}
