@@ -894,3 +894,25 @@ add_action('wp_body_open', function() {
         <?php
     }
 });
+
+/**
+ * Change WooCommerce My Account address headings from <h2> to <p>.
+ */
+add_action('template_redirect', function () {
+
+  if ( ! is_account_page() || ! is_wc_endpoint_url('edit-address') ) {
+    return;
+  }
+
+  ob_start(function ($html) {
+
+    $html = preg_replace(
+      '#<h2>(Billing address|Shipping address)</h2>#i',
+      '<strong><p class="woocommerce-address-heading">$1</p></strong>',
+      $html
+    );
+
+    return $html;
+  });
+
+});
