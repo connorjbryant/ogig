@@ -1,7 +1,7 @@
 # OGIG Factory Direct Theme
 
 A custom WordPress theme built for OGIG Factory Direct.  
-This theme uses **Dart Sass** for styles and **esbuild** for JavaScript bundling — two modern, fast compilers that generate optimized assets in a `/build` folder for better performance.
+This theme uses **Dart Sass** for styles and **esbuild** for JavaScript bundling which are two modern, fast compilers that generate optimized assets in a `/build` folder for better performance.
 
 ## Folder Structure
 
