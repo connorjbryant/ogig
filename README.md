@@ -51,11 +51,11 @@ This theme emphasizes simplicity, speed, and modularity in both design and devel
 Explanation of folder structure:
 In frameworks like React, Vue, or Node, all source code typically lives inside a /src folder 
 because those projects compile into bundled applications. WordPress, however, doesn’t follow 
-that model — the theme itself is the “source,” running directly from the root directory. 
+that model because the theme itself is the “source,” running directly from the root directory. 
 JavaScript files live in /src/js/ to mimic modern build systems that bundle ES modules with 
 esbuild, while Sass lives in /scss/ since it’s a styling asset rather than application logic. 
 This separation keeps the build lightweight and intuitive: Dart Sass compiles styles, 
 esbuild bundles scripts, and both output to /build/ for WordPress to enqueue. Each block is 
 modular and self-contained within /blocks/, and asset versioning via filemtime() ensures 
-browsers always load the latest minified files without cache issues — resulting in a fast, 
+browsers always load the latest minified files without cache issues. The result in a fast, 
 maintainable, and WordPress-native development workflow.
